@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아정당 × 다나와 — 신차·렌트/리스 진입 기획안</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
+    --line: #e5e3dc;
+    --accent: #2c4a6b;
+    --accent-soft: #ecf0f5;
+    --warn: #8a6d3b;
+    --warn-soft: #fbf6e9;
+    --ok-soft: #eef3ed;
+    --code-bg: #f0ede5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "tnum" 1;
+    line-height: 1.7;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 32px 96px; }
+  header.doc { border-bottom: 2px solid var(--ink); padding-bottom: 24px; margin-bottom: 40px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; font-weight: 500; }
+  h1.title { font-size: 30px; line-height: 1.3; margin: 0 0 12px; font-weight: 700; letter-spacing: -0.02em; }
+
+  details { border-bottom: 1px solid var(--line); padding: 0; }
+  details[open] { padding-bottom: 24px; }
+  details > summary {
+    list-style: none; cursor: pointer; padding: 20px 0;
+    display: flex; align-items: center; gap: 14px;
+    font-weight: 600; font-size: 17px; color: var(--ink);
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before {
+    content: "+"; display: inline-block;
+    width: 20px; height: 20px; line-height: 18px;
+    text-align: center; border: 1px solid var(--ink); border-radius: 50%;
+    font-size: 14px; font-weight: 400; flex-shrink: 0; transition: transform .2s ease;
+  }
+  details[open] > summary::before { content: "−"; }
+  details .num { color: var(--ink-faint); font-variant-numeric: tabular-nums; font-weight: 500; margin-right: 6px; font-size: 14px; }
+  details .body { padding-left: 34px; color: var(--ink-soft); }
+  details .body h3 { color: var(--ink); font-size: 15px; margin: 24px 0 10px; font-weight: 600; }
+  details .body h3:first-child { margin-top: 4px; }
+  details .body p { margin: 0 0 12px; }
+  details .body ul, details .body ol { margin: 0 0 14px; padding-left: 20px; }
+  details .body li { margin-bottom: 6px; }
+  details .body strong { color: var(--ink); font-weight: 600; }
+
+  details details { border-bottom: 1px dashed var(--line); margin-left: -10px; }
+  details details:last-child { border-bottom: none; }
+  details details > summary { padding: 14px 0; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+  details details > summary::before { width: 16px; height: 16px; line-height: 14px; font-size: 12px; }
+  details details .body { padding-left: 30px; font-size: 14px; }
+
+  .summary-box {
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    padding: 24px 28px; margin-bottom: 32px; border-radius: 2px;
+  }
+  .summary-box h2 { margin: 0 0 14px; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .summary-box .lead { font-size: 17px; line-height: 1.55; color: var(--ink); margin: 0 0 16px; font-weight: 500; }
+  .summary-box ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--ink-soft); }
+  .summary-box ul li { margin-bottom: 4px; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0 20px; }
+  .stat { border: 1px solid var(--line); padding: 14px 16px; background: #fff; }
+  .stat .label { font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .stat .value { font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+  .stat .sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+
+  .callout { border-left: 3px solid; padding: 12px 16px; margin: 14px 0; font-size: 14px; border-radius: 0 2px 2px 0; }
+  .callout .tag { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; display: block; }
+  .callout.warn { background: var(--warn-soft); border-color: var(--warn); }
+  .callout.warn .tag { color: var(--warn); }
+  .callout.key { background: var(--accent-soft); border-color: var(--accent); }
+  .callout.key .tag { color: var(--accent); }
+  .callout.note { background: var(--ok-soft); border-color: #4a6c4d; }
+  .callout.note .tag { color: #4a6c4d; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 14px 0; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--ink); background: var(--code-bg); font-size: 12.5px; letter-spacing: 0.02em; }
+  td { color: var(--ink-soft); }
+  td strong { color: var(--ink); }
+
+  .src { font-size: 11.5px; color: var(--ink-faint); margin-top: 6px; font-style: italic; }
+  .confidence { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; font-weight: 500; }
+  .confidence.high { background: var(--ok-soft); color: #3d5a40; }
+  .confidence.mid { background: var(--warn-soft); color: var(--warn); }
+  .confidence.low { background: var(--accent-soft); color: var(--accent); }
+
+  .toc { background: #fff; border: 1px solid var(--line); padding: 16px 20px; margin-bottom: 24px; font-size: 13px; }
+  .toc .toc-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; margin-bottom: 8px; }
+  .toc ol { margin: 0; padding-left: 22px; color: var(--ink-soft); }
+  .toc ol li { margin-bottom: 3px; }
+
+  .controls { display: flex; gap: 10px; margin-bottom: 16px; font-size: 12px; }
+  .controls button { border: 1px solid var(--line); background: #fff; padding: 6px 12px; cursor: pointer; color: var(--ink-soft); font-family: inherit; font-size: 12px; border-radius: 2px; transition: all .15s ease; }
+  .controls button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  footer.doc { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-faint); text-align: center; }
+
+  .scenario-box { border: 1px solid var(--line); padding: 16px 20px; margin: 14px 0; background: #fff; border-radius: 2px; }
+  .scenario-box h4 { margin: 0 0 8px; font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+  .scenario-box .scenario-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+
+  @media print {
+    details { page-break-inside: avoid; }
+    details > .body { display: block !important; }
+    summary::before { display: none; }
+    .controls { display: none; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 32px 18px 64px; }
+    h1.title { font-size: 24px; }
+    .stats { grid-template-columns: 1fr; }
+    details .body { padding-left: 0; }
+    details details .body { padding-left: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <div class="eyebrow">아정당 × 다나와 — 신차·렌트/리스 진입 기획안</div>
+  <h1 class="title">신차·렌트/리스 카테고리 시장 진입 전략 및 협업 제안 (사전 검토안)</h1>
+</header>
+
+<div class="summary-box">
+  <h2>한눈에 보기</h2>
+  <p class="lead">
+    다나와의 신차 견적·렌트/리스 가격비교 인프라를 활용해 <strong>신차·렌트/리스 카테고리에 진입</strong>.
+    1차 목표는 차량 거래 마진이 아니라, <strong>아정당 브랜드 인입을 통한 자동차 리드 확보 및 자동차보험 결합 전환</strong>.
+    2030 세대의 신차→렌트/리스 전환이 당사 핵심 타깃과 정확히 일치하며, 자동차 인도 시점의 의무보험 가입이 본업 수익 풀(연 20조)과 직결됨.
+  </p>
+  <ul>
+    <li>신차 시장 110만대/년, <strong>20·30 세대 신차 점유율 10년 최저 (5.6%/19%)</strong></li>
+    <li>렌트·리스 시장 10조+, <strong>롯데렌탈 개인 장기렌트 25.7%→57%</strong> 급성장</li>
+    <li>1순위 영역은 <strong>장기렌트·리스</strong> (2030 타깃 일치) → 2순위 신차 견적</li>
+    <li>핵심 수익 메커니즘: <strong>자동차 리드 → 보험 전환</strong>. 보험 사업자 아닌 다나와·캐피탈사 모방 불가</li>
+    <li>본 문서는 <strong>다나와 자동차 측 미팅 이전 사전 검토안</strong>으로, 협업 시나리오는 가정 기반</li>
+  </ul>
+</div>
+
+<div class="toc">
+  <div class="toc-title">목차</div>
+  <ol>
+    <li>신차·렌트/리스 시장 현황</li>
+    <li>경쟁 구도 — 다나와, 현대캐피탈, KB캐피탈, 롯데렌탈</li>
+    <li>비즈니스 모델 분석 — CPA 중심</li>
+    <li>신차·렌트/리스 기본 상식 — 보고 전 알아둘 내용</li>
+    <li>아정당 진입 전략 — 영역별 우선순위</li>
+    <li>결합상품 모델 — 자동차 + 보험 (핵심 수익 메커니즘)</li>
+    <li>자동차 × 보험 — 왜 같이 봐야 하는가</li>
+    <li>다나와 협업 제안 — 시나리오 1·2 (사전 검토)</li>
+    <li>예상 수익 시나리오 검토</li>
+    <li>리스크 & 다음 단계</li>
+  </ol>
+  <p style="font-size: 12px; color: var(--ink-faint); margin: 8px 0 0;">중고차 영역은 시장 구조·진입 전략이 달라 별도 기획안으로 분리.</p>
+</div>
+
+<div class="controls">
+  <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">전체 펼치기</button>
+  <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">전체 접기</button>
+  <button onclick="window.print()">인쇄 / PDF</button>
+</div>
+
+<!-- ===================== 1. 시장 현황 ===================== -->
+<details open>
+  <summary><span class="num">01</span>신차·렌트/리스 시장 현황</summary>
+  <div class="body">
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">2024 신차 등록</div>
+        <div class="value">약 110만대</div>
+        <div class="sub">개인 자가용 기준</div>
+      </div>
+      <div class="stat">
+        <div class="label">렌트·리스 시장</div>
+        <div class="value">10조 원+</div>
+        <div class="sub">렌터카 등록 110만대 돌파</div>
+      </div>
+      <div class="stat">
+        <div class="label">자동차보험 시장</div>
+        <div class="value">연 약 20조</div>
+        <div class="sub">2024 상반기 10.5조</div>
+      </div>
+    </div>
+    <p class="src">자료: 카이즈유데이터연구소, 현대캐피탈, 금감원 2024 상반기 자동차보험 사업실적. <span class="confidence high">신뢰도 높음</span></p>
+
+    <details>
+      <summary>핵심 트렌드 4가지</summary>
+      <div class="body">
+        <h3>1) 2030 세대의 신차 이탈, 리스·렌트 전환 가속</h3>
+        <p>20대 신차 등록 점유율은 2016년 8.8% → 2024년 5.6%로 10년 만에 최저. 30대도 19%로 하락. 동시에 30대 리스 이용은 2023년 대비 2025년 194.5%로 거의 2배. 렌트도 30대 131.1%, 20대 122.9%로 확대.</p>
+        <p><strong>시사점:</strong> 2030 세대 = 당사 핵심 타깃 = 리스/렌트 수요층. 신차 직접 판매가 아니라 <strong>장기렌트·리스 견적</strong>이 1차 진입 영역으로 적합.</p>
+
+        <h3>2) 롯데렌탈 개인 장기렌트 비중 25.7% → 57% (2024)</h3>
+        <p>법인 중심이던 장기렌트가 개인 시장으로 빠르게 확장. 시장 자체가 신차 구매에서 장기렌트로 이동 중.</p>
+
+        <h3>3) 신차 가격 부담·고금리로 구매 회피</h3>
+        <p>K카 2024 조사에 따르면 "여전히 신차 선호" 35.0%, "가격 부담으로 망설인다" + "중고차 고려" 49.8%. 소비자 절반가량이 신차 가격·금리 환경을 이유로 구매를 주저.</p>
+
+        <h3>4) 자동차보험 — CM(온라인) 채널 35.6%로 비대면 확대</h3>
+        <p>대면 채널 48.0%, CM 35.6%, TM 16.1%. 대면 비중 지속 감소. 비대면 판매 채널 확보가 보험 매출 증대의 핵심.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>세그먼트별 아정당 적합도</summary>
+      <div class="body">
+        <table>
+          <tr><th>세그먼트</th><th>규모/특성</th><th>아정당 적합도</th></tr>
+          <tr><td><strong>장기렌트·리스</strong></td><td>10조+, 2030 급성장, 월 납입 모델</td><td><strong>높음</strong> — 핵심 타깃 일치, 결합 모델과 호환</td></tr>
+          <tr><td><strong>신차 구매</strong></td><td>110만대/년, 20·30 점유율 하락, 견적 플랫폼 경쟁</td><td>중간 — 다나와 신차 견적 활용 시 가능</td></tr>
+          <tr><td><strong>자동차보험 (연계 영역)</strong></td><td>연 20조, CM 채널 확대, 당사 본업</td><td><strong>최우선</strong> — 결합 전환 타깃</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 2. 경쟁 구도 ===================== -->
+<details>
+  <summary><span class="num">02</span>경쟁 구도 — 다나와, 현대캐피탈, KB캐피탈, 롯데렌탈</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 인사이트</span>
+      신차·렌트/리스 영역은 <strong>견적 플랫폼</strong>(다나와)과 <strong>금융사 직판</strong>(현대캐피탈·KB캐피탈)과 <strong>렌트 사업자 직판</strong>(롯데렌탈) 세 축으로 분리.
+      당사 진입은 견적 플랫폼 축 = 다나와와의 협업이 가장 자연스러움.
+    </div>
+
+    <details open>
+      <summary>1티어 — 다나와 자동차</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>내용</th></tr>
+          <tr><td>운영</td><td>신차 견적·렌트/리스 가격비교·중고차 매물 통합. "구매 상담 신청" → 제휴 영업사원 연계</td></tr>
+          <tr><td>강점</td><td>가격비교 검색 트래픽, 차량 DB 충실, 제휴 딜러 네트워크 확보</td></tr>
+          <tr><td>약점</td><td>본인 인입 마케팅·브랜드는 약함 (소비자 직접 인지보다 검색 유입 의존)</td></tr>
+          <tr><td>당사와 관계</td><td><strong>커넥트웨이브 그룹 자매사 — 협업 1순위 대상</strong></td></tr>
+        </table>
+        <p class="src">자료: 다나와 자동차 공개 페이지·앱 설명. <span class="confidence high">신뢰도 높음</span></p>
+
+        <div class="callout warn">
+          <span class="tag">관계 메모</span>
+          2026년 1월 커넥트웨이브의 아정당 경영권 인수(공개 보도 기준)로 다나와는 당사의 자매사 관계.
+          단, 다나와 자동차팀 실무 KPI(견적 리드 수, 딜러 매칭 수)는 별도로 운영되므로 그룹 내부라도 협업 합의는 실무 협상 필요.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>2티어 — 금융사 직판 (현대캐피탈, KB캐피탈)</summary>
+      <div class="body">
+        <table>
+          <tr><th>업체</th><th>특성</th></tr>
+          <tr><td><strong>현대캐피탈</strong></td><td>리스·할부 직접 운영. 자체 견적·금융 상품 직판매. 리스 자산 규모 큼</td></tr>
+          <tr><td><strong>KB캐피탈 (KB차차차)</strong></td><td>중고차 + 렌트/리스 통합 플랫폼. 은행계열 자금 강점</td></tr>
+        </table>
+        <p><strong>당사와 관계:</strong> 협업보다 경쟁 구도. 다만 당사가 견적 플랫폼화하면 이들 금융 상품도 비교 노출 가능 — 장기 협업 옵션.</p>
+        <p class="src">자료: 각사 공개 페이지. <span class="confidence mid">신뢰도 보통 — 정량 점유율 별도 확인 필요</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>3티어 — 렌트 사업자 직판 (롯데렌탈)</summary>
+      <div class="body">
+        <table>
+          <tr><th>업체</th><th>특성</th></tr>
+          <tr><td><strong>롯데렌탈 (롯데렌터카)</strong></td><td>국내 렌터카 1위. 차량 직접 보유. 개인 장기렌트 비중 2023년 25.7% → 2024년 57% 급증</td></tr>
+          <tr><td><strong>기타</strong></td><td>SK렌터카, AJ렌터카 등 사업자 다수</td></tr>
+        </table>
+        <p><strong>당사와 관계:</strong> 견적 비교 단계에서 공급사로 연결 가능. 시나리오 2(자체 운영)에서 직접 협상 가능 채널.</p>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 3. 비즈니스 모델 ===================== -->
+<details>
+  <summary><span class="num">03</span>비즈니스 모델 분석 — CPA 중심</summary>
+  <div class="body">
+
+    <p>신차·렌트/리스 영역은 견적 플랫폼이 딜러·영업사원·금융사에 리드를 송출하고 수수료를 받는 <strong>CPA(성과형 리드 판매) 모델</strong>이 주류.</p>
+
+    <details open>
+      <summary>CPA 모델 — 신차·렌트/리스의 표준</summary>
+      <div class="body">
+        <p><strong>구조:</strong> 사용자 견적문의 → 플랫폼이 적정 딜러·영업사원에게 리드 송출 → 딜러가 리드당 수수료 지불</p>
+        <ul>
+          <li><strong>주요 사업자:</strong> 다나와 자동차, KB차차차 일부, 견적 비교 전문 채널들</li>
+          <li><strong>수익:</strong> 리드당 수수료. 신차 견적 리드는 보통 수만~십수만원 수준으로 추정 <span class="confidence low">신뢰도 낮음 — 업계 추정, 실제 단가는 협상 기준</span></li>
+          <li><strong>장점:</strong> 차량 재고·매입 부담 없음, 트래픽이 곧 매출</li>
+          <li><strong>단점:</strong> 딜러 네트워크 확보·관리가 핵심 자산이며 진입장벽</li>
+        </ul>
+        <p><strong>아정당 적용성:</strong> 1순위 모델. 당사의 자동차 딜러 1,600명 자산과 다나와 협업 시너지가 모두 CPA 모델과 정합.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>보조 모델 — 광고 리스팅 (Listing/CPC)</summary>
+      <div class="body">
+        <p>딜러나 업체가 광고비 지불 → 사용자가 광고 클릭 → 업체 페이지로 이동.</p>
+        <ul>
+          <li>주요 사업자: 일부 렌트사·캐피탈사의 자동차 견적 채널 광고</li>
+          <li>수익: 클릭당(CPC) 또는 정액 등재료</li>
+          <li>장점: 운영 단순. 단점: 단가 낮음</li>
+        </ul>
+        <p><strong>당사 적용성:</strong> CPA 모델의 보완재. 초기에는 우선순위 낮음.</p>
+      </div>
+    </details>
+
+    <div class="callout key">
+      <span class="tag">전략적 결론</span>
+      당사 1차 진입은 <strong>CPA 모델</strong>이 적합.
+      다나와와의 협업 가능성, 당사 1,600 딜러 자산, 자동차보험 cross-sell 구조 모두 CPA와 정합.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 4. 기본 상식 ===================== -->
+<details>
+  <summary><span class="num">04</span>신차·렌트/리스 기본 상식 — 보고 전 알아둘 내용</summary>
+  <div class="body">
+
+    <details>
+      <summary>신차·리스·장기렌트의 차이</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>구매 형태</th><th>소유권</th><th>월 부담</th><th>주 사용자</th></tr>
+          <tr><td><strong>신차 현금/할부</strong></td><td>구매(일시불 또는 할부)</td><td>본인</td><td>할부금</td><td>전 연령</td></tr>
+          <tr><td><strong>리스 (금융/운용)</strong></td><td>금융사가 차량 보유, 임대료 납부</td><td>금융사 (옵션 매수 가능)</td><td>리스료</td><td>법인·2030 확대</td></tr>
+          <tr><td><strong>장기렌트</strong></td><td>렌트사가 차량 보유, 월 임대료</td><td>렌트사</td><td>렌트료</td><td>법인·2030 급증</td></tr>
+        </table>
+        <p>2030 세대는 신차 → 리스·렌트로 빠르게 이동 중. <strong>"차를 산다"가 아니라 "차를 빌린다"</strong>가 트렌드.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>딜러 구조 — 누가 무엇을 하는가</summary>
+      <div class="body">
+        <ul>
+          <li><strong>신차 딜러 (영업사원):</strong> 제조사 대리점 소속. 신차 판매·할부 안내. 페이백·할인은 비공식 채널 (제조사 노조 단속)</li>
+          <li><strong>리스·렌트 영업:</strong> 금융사·렌트사 소속 또는 GA(General Agency) 형태. 견적·계약·인도 담당</li>
+          <li><strong>아정당 보유 딜러 1,600명:</strong> 자동차 보험 DB 제공 관계의 자동차 딜러. 신차·리스·렌트 비중과 인바운드 처리 역량은 별도 검증 필요</li>
+        </ul>
+
+        <div class="callout warn">
+          <span class="tag">검증 필요</span>
+          당사 1,600 딜러의 <strong>실제 활성도와 인바운드 리드 처리 역량</strong>은 사전 점검 항목.
+          기존 outbound(차 구매 고객 → 당사 보험) 흐름과 inbound(당사가 리드 제공 → 딜러)는 운영 방식이 다름.
+          1,600 중 실제 동원 가능 수, 권역 분포, 평균 응답속도 등 실측 필요.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>견적 → 인도까지의 흐름</summary>
+      <div class="body">
+        <ol>
+          <li><strong>견적 문의 (Lead):</strong> 플랫폼에서 모델·옵션 선택, 연락처 입력</li>
+          <li><strong>딜러 매칭:</strong> 플랫폼이 적정 딜러에게 리드 송출</li>
+          <li><strong>상담:</strong> 딜러가 전화/카톡으로 견적·할인·금융 옵션 안내</li>
+          <li><strong>계약:</strong> 계약서 작성, 보증금/계약금 납부</li>
+          <li><strong>출고 준비:</strong> 차량 생산·도착 대기 (신차 1~3개월), 등록·번호판</li>
+          <li><strong>인도:</strong> 출고, 자동차 등록, <strong>자동차보험 가입 (의무, cross-sell 시점)</strong></li>
+        </ol>
+        <p><strong>핵심:</strong> 자동차 인도 시점에 보험 가입이 의무. 이때가 당사가 보험을 cross-sell할 가장 자연스러운 타이밍.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>알아두면 좋은 용어</summary>
+      <div class="body">
+        <table>
+          <tr><th>용어</th><th>의미</th></tr>
+          <tr><td><strong>CPA</strong></td><td>Cost Per Action. 성과(리드, 계약)당 수수료</td></tr>
+          <tr><td><strong>CPC / CPM</strong></td><td>클릭당 / 노출 1000회당 광고비</td></tr>
+          <tr><td><strong>인보이스</strong></td><td>제조사가 딜러에게 차량 공급할 때의 가격. 딜러 마진의 기준</td></tr>
+          <tr><td><strong>페이백</strong></td><td>딜러가 인센티브 일부를 고객에게 환급. 제조사 노조 단속 대상</td></tr>
+          <tr><td><strong>탁송</strong></td><td>출고된 차량을 고객에게 운송하는 작업</td></tr>
+          <tr><td><strong>금융리스 vs 운용리스</strong></td><td>금융리스: 만기 후 본인 명의 이전. 운용리스: 만기 후 반납/연장. 회계 처리 다름</td></tr>
+          <tr><td><strong>의무보험</strong></td><td>대인배상Ⅰ. 차량 등록·운행에 법적 필수</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 5. 진입 전략 ===================== -->
+<details>
+  <summary><span class="num">05</span>아정당 진입 전략 — 영역별 우선순위</summary>
+  <div class="body">
+
+    <h3>한 줄 정의</h3>
+    <p>당사 유튜브 기반 브랜드 인지도를 활용해 <strong>신차·렌트/리스 견적 카테고리</strong>에 진입.
+    핵심 목표는 자동차 거래 마진이 아니라, <strong>자동차 리드를 자동차보험 가입으로 전환</strong>해 본업 매출 확대.</p>
+
+    <details open>
+      <summary>영역별 우선순위</summary>
+      <div class="body">
+        <table>
+          <tr><th>영역</th><th>우선순위</th><th>접근 방식</th></tr>
+          <tr><td><strong>장기렌트·리스</strong></td><td>1순위</td><td>2030 타깃 일치, 다나와 가격비교 연계, CPA 모델</td></tr>
+          <tr><td><strong>신차 견적</strong></td><td>2순위</td><td>다나와 신차 견적 연계, CPA 모델. 딜러 네트워크 협상이 관건</td></tr>
+          <tr><td><strong>자동차보험 연계</strong></td><td>전 영역 공통</td><td>모든 자동차 lead의 종착점. 핵심 수익원</td></tr>
+        </table>
+        <p>장기렌트/리스가 1순위인 이유는 (1) 2030 세대의 신차 이탈·렌트리스 전환 트렌드와 당사 핵심 타깃이 정합, (2) 월 납입 구조라 결합 상품 모델과 호환, (3) 신차 대비 딜러 노조 단속 부담 적음.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>강점 기반 R&R (협업 가정)</summary>
+      <div class="body">
+        <table>
+          <tr><th>영역</th><th>아정당</th><th>다나와</th></tr>
+          <tr><td>수요 창출·인입</td><td><strong>유튜브 브랜드 인입, 자동차 콘텐츠</strong></td><td>가격비교 검색 유입</td></tr>
+          <tr><td>견적 프론트엔드</td><td>당사 도메인의 견적 페이지</td><td><strong>차량 정보·스펙·가격 DB 제공</strong></td></tr>
+          <tr><td>딜러 네트워크</td><td>당사 1,600 딜러 (검증 필요)</td><td><strong>제휴 영업사원 네트워크</strong></td></tr>
+          <tr><td>리드 라우팅</td><td>리드 수집·1차 응대</td><td>리드 매칭 시스템 (협업 시)</td></tr>
+          <tr><td>자동차보험 전환</td><td><strong>당사 본업·CRM·상담조직</strong></td><td>—</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>차별화 레버 — 보험 결합 + 브랜드 인입</summary>
+      <div class="body">
+        <p><strong>1차 차별화 = 자동차 + 보험 결합 (섹션 06 상세).</strong> 자동차 리드를 노마진 또는 박마진으로 받아도, 보험 전환 수익으로 회수 가능. 다나와·캐피탈사는 보험 사업자 아니므로 동일 구조 구현 불가.</p>
+        <p><strong>2차 차별화 = 유튜브 브랜드 인입.</strong> 당사가 PPL·콘텐츠로 검증한 인입 모델을 자동차 카테고리로 확장. 이미 자동차 관련 콘텐츠(보험 가이드 등)가 운영 중.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>단계별 로드맵 (가정 기반)</summary>
+      <div class="body">
+        <table>
+          <tr><th>단계</th><th>기간</th><th>목표</th><th>핵심 활동</th></tr>
+          <tr><td><strong>0단계</strong></td><td>1차 미팅 직후</td><td>다나와와 협업 범위 합의</td><td>시나리오 1·2 중 가능 범위 확정</td></tr>
+          <tr><td><strong>1단계</strong></td><td>1~2개월</td><td>견적 페이지 가동 + 리드 수집</td><td>장기렌트/리스 1~2 차종 시범, 보험 cross-sell 펀널 구축</td></tr>
+          <tr><td><strong>2단계</strong></td><td>3~6개월</td><td>딜러 운영 안정화 + 전환율 측정</td><td>1,600 딜러 활성도 검증, 보험 전환율 코호트별 실측</td></tr>
+          <tr><td><strong>3단계</strong></td><td>마일스톤 게이트</td><td>신차 영역 확장 결정</td><td>1단계 결과로 신차 견적 진입 여부 판단</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 6. 결합상품 모델 ===================== -->
+<details>
+  <summary><span class="num">06</span>결합상품 모델 — 자동차 + 보험 (핵심 수익 메커니즘)</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 아이디어</span>
+      자동차 리드(견적·렌트·리스)는 박마진 또는 노마진으로 운영.
+      <strong>자동차 인도 시점의 의무 보험 가입을 당사 보험 가입으로 전환</strong>해 수익화.
+      자동차 거래 = 보험 가입 트리거이며, 시점 적합성이 매우 높음.
+      PC 기획안의 "PC + 인터넷 결합"과 동일 구조의 자동차 버전.
+    </div>
+
+    <h3>수익 메커니즘</h3>
+    <table>
+      <tr><th>판매 형태</th><th>아정당 수익원</th><th>목적</th></tr>
+      <tr>
+        <td><strong>자동차 견적·계약만 (보험 미전환)</strong></td>
+        <td>CPA 수수료 (있을 경우)</td>
+        <td>카테고리 진입·트래픽</td>
+      </tr>
+      <tr>
+        <td><strong>자동차 + 보험 결합 전환</strong></td>
+        <td><strong>자동차 CPA + 보험 가입 수수료/마진</strong></td>
+        <td>본업 매출 확대</td>
+      </tr>
+    </table>
+
+    <details open>
+      <summary>전환 타이밍 — 왜 자동차 구매가 보험 가입 트리거인가</summary>
+      <div class="body">
+        <ul>
+          <li><strong>법적 의무:</strong> 신차 인도 시 자동차 등록과 동시에 의무보험 가입 필수. 즉 100% 가입 발생.</li>
+          <li><strong>의사결정 집중 시점:</strong> 차량 옵션·금융·보험을 같은 시기에 결정하는 것이 일반적. 분리 결정 비중은 낮음.</li>
+          <li><strong>비교 의향 최고조:</strong> 차량 구매는 일생 몇 안 되는 큰 결정. 부속 결정(보험)도 비교·검토 의향이 높음.</li>
+          <li><strong>당사의 비교·상담 모델과 정합:</strong> 당사가 통신·렌탈에서 운영해온 비교·상담 모델을 보험에 그대로 적용 가능.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>경쟁사 모방 가능성 — 왜 다나와·캐피탈사는 못 하는가</summary>
+      <div class="body">
+        <p>경쟁 플랫폼들이 동일 구조를 모방하기 어려운 이유:</p>
+        <ul>
+          <li>다나와는 <strong>보험 사업자가 아님</strong>. 보험 가입을 처리할 라이선스·시스템·상담조직 부재.</li>
+          <li>당사는 자동차보험 대리점·DB 운영 경험과 1,600 딜러 자산을 보유 — 모방 자산 구축에 수년 소요 추정.</li>
+          <li>금융사(현대캐피탈 등)는 보험 사업 일부 보유하나, 비교·상담 중심의 비대면 채널 운영 경험이 부족.</li>
+        </ul>
+        <p><strong>결론:</strong> 자동차 + 보험 결합 구조는 당사가 구조적으로 우위인 영역.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>예상 단가 시뮬레이션 (확정 전)</summary>
+      <div class="body">
+        <p>아래는 모델 설명용 예시. 실제 수치는 보험팀 협의·시장 단가 확인 후 확정.</p>
+        <table>
+          <tr><th>항목</th><th>예시 단가</th></tr>
+          <tr><td>자동차 견적 리드 매출 (CPA)</td><td>건당 수만~십만원대 추정</td></tr>
+          <tr><td>자동차 견적 → 보험 전환율</td><td>실측 필요 (가정: 한 자릿수~10%대)</td></tr>
+          <tr><td>보험 가입 1건당 마진</td><td>당사 내부 데이터 기준</td></tr>
+          <tr><td>리드 1건당 기대 매출 (가중평균)</td><td>= CPA + (전환율 × 보험마진)</td></tr>
+        </table>
+        <p class="src">단가는 모두 예시. 실측 후 확정. <span class="confidence low">신뢰도 낮음 — 확정 전</span></p>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 7. 자동차 × 보험 ===================== -->
+<details>
+  <summary><span class="num">07</span>자동차 × 보험 — 왜 같이 봐야 하는가</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">이 섹션의 목적</span>
+      "자동차 견적은 알겠는데 보험까지 가져갈 명분이 있나?"라는 의심에 대한 답변.
+      <strong>자동차 구매·보유 결정과 자동차보험은 분리 불가능한 동일 의사결정</strong>이라는 점을 명시.
+    </div>
+
+    <h3>핵심 논리</h3>
+    <p>자동차를 사거나 빌리는 행위는 단독 의사결정이 아님. 차량 선택 → 금융 선택(할부/리스/렌트) → 보험 가입은 <strong>같은 시점에 결정되는 패키지</strong>. 이 패키지를 분리해서 다른 채널에 보내면 사용자 입장에서도 불편하고, 사업자 입장에서도 가치 사슬의 일부만 챙기는 비효율.</p>
+
+    <details open>
+      <summary>자동차 의사결정의 구성 요소</summary>
+      <div class="body">
+        <table>
+          <tr><th>의사결정</th><th>시점</th><th>당사 적합도</th></tr>
+          <tr><td>차종·옵션 선택</td><td>구매 전 정보 탐색</td><td>콘텐츠·견적 비교 영역</td></tr>
+          <tr><td>금융 방식 (할부·리스·렌트)</td><td>견적·계약 단계</td><td>비교 상담 가능</td></tr>
+          <tr><td><strong>자동차보험 가입</strong></td><td>인도 직전·직후 (의무)</td><td><strong>당사 본업, 비교·상담 강점</strong></td></tr>
+          <tr><td>유지·정비</td><td>보유 기간 중</td><td>장기 잠재 영역</td></tr>
+        </table>
+        <p>중간의 보험 단계만 분리해서 다른 채널로 보내는 것은 비효율적. 당사가 가치 사슬 후반을 가져가는 구조가 사용자·사업자 모두에 합리적.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>예상 카운터 질문 3가지 — 미리 준비된 답</summary>
+      <div class="body">
+        <h3>Q1. "자동차 사면 다이렉트 보험사로 바로 가지 않나요?"</h3>
+        <p>다이렉트(CM) 채널은 2024 상반기 기준 35.6%로 성장세이나, 대면(48%)과 TM(16%)을 합한 비대면 외 채널이 여전히 과반. 즉 <strong>여전히 절반 이상의 가입자가 비교·상담을 통해 가입</strong>. 당사의 비교·상담 모델은 이 영역에 정합.</p>
+
+        <h3>Q2. "보험은 손보사 직판이 더 싸지 않나요?"</h3>
+        <p>다이렉트 채널이 단가는 낮을 수 있으나, <strong>차량·금융·보험을 통합 상담받고 싶은 수요</strong>가 별도로 존재. 비교·할인·특약 안내 등 정보 비대칭 해소 가치가 당사의 차별 요소. 당사가 통신·렌탈에서 검증한 비교·상담 모델과 동일.</p>
+
+        <h3>Q3. "자동차 카테고리는 다나와가 이미 잘하고 있는데 우리가 굳이?"</h3>
+        <p>다나와는 차량 견적·매칭이 본업이며 <strong>보험 사업자가 아님</strong>. 따라서 자동차 리드의 보험 전환은 다나와가 직접 못 함. 그룹 시너지 측면에서 당사가 보험 영역을 가져가는 것이 그룹 전체 매출에 가산적. 경쟁이 아닌 보완 관계.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>당사 기존 자산 — 이미 이 영역에서 운영 중</summary>
+      <div class="body">
+        <p>당사는 이미 자동차보험 DB·상담·딜러 네트워크(1,600명)를 보유하고 있으며, 자동차 관련 콘텐츠(보험 비교 등)를 운영 중. <strong>자동차 영역은 새 카테고리가 아니라 기존 자산의 활용 폭 확대</strong>에 가까움.</p>
+      </div>
+    </details>
+
+    <div class="callout note">
+      <span class="tag">전략적 함의</span>
+      자동차 사업은 별개의 신사업이 아니라 <strong>당사 자동차보험 사업의 인입 채널 확장</strong>으로 정의 가능.
+      이 정의가 윗선 보고의 핵심 프레임. "신사업 진출"보다 "기존 사업의 신규 인입 채널 확보"로 설명하면 의사결정 부담이 작음.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 8. 다나와 협업 시나리오 ===================== -->
+<details>
+  <summary><span class="num">08</span>다나와 협업 제안 — 시나리오 1·2 (사전 검토)</summary>
+  <div class="body">
+
+    <div class="callout warn">
+      <span class="tag">상태</span>
+      본 섹션은 <strong>다나와 자동차 측과의 미팅 이전 사전 검토안</strong>.
+      실제 협업 가능 범위는 미팅 후 확정.
+    </div>
+
+    <h3>협업 구조의 두 갈래</h3>
+    <p>다나와의 수용 범위에 따라 두 가지 시나리오로 분기. 1번이 더 큰 협업이지만 다나와 측 저항 가능성 있음. 2번이 현실적 디폴트로 추정.</p>
+
+    <div class="scenario-box">
+      <h4>시나리오 1 — Full CPA 라우팅 (다나와 딜러 네트워크 공유)</h4>
+      <div class="scenario-title">아정당 견적 페이지 → 다나와 딜러로 라우팅 (CPA)</div>
+      <table>
+        <tr><th>구성 요소</th><th>내용</th></tr>
+        <tr><td>프론트엔드</td><td>아정당 도메인의 견적 페이지 (다나와와 동일 플로우, 다른 어트리뷰션 파라미터)</td></tr>
+        <tr><td>차량 DB</td><td>다나와 제공 (스펙·가격·옵션)</td></tr>
+        <tr><td>딜러 매칭</td><td><strong>다나와 제휴 영업사원 네트워크 공유</strong></td></tr>
+        <tr><td>수수료</td><td>아정당이 다나와에 CPA 지불</td></tr>
+        <tr><td>보험 전환</td><td>인도 시점 아정당이 처리 (그룹 cross-sell)</td></tr>
+      </table>
+      <p><strong>장점:</strong> 빠른 진입, 딜러 모집 부담 없음, 다나와 인프라 그대로 활용</p>
+      <p><strong>단점:</strong> 다나와 자동차팀의 핵심 자산 공유 요구 → 실무 저항 가능성 높음</p>
+      <p><strong>예상 다나와 입장:</strong> "내 리드를 자회사한테 갈라준다"로 인식될 우려. 그룹 시너지 명분과 보험 cross-sell의 incremental 가치를 입증해야 설득력 확보.</p>
+    </div>
+
+    <div class="scenario-box">
+      <h4>시나리오 2 — Frontend 라이선스 + 자체 딜러 (디폴트 옵션)</h4>
+      <div class="scenario-title">다나와의 차량 정보·UX만 활용, 딜러는 당사 1,600명 활용</div>
+      <table>
+        <tr><th>구성 요소</th><th>내용</th></tr>
+        <tr><td>프론트엔드</td><td>다나와의 차량 정보·견적 UI 라이선스 (단기 시간 절약용)</td></tr>
+        <tr><td>차량 DB</td><td>다나와 제공 (라이선스 또는 API)</td></tr>
+        <tr><td>딜러 매칭</td><td><strong>당사 1,600 자동차 딜러 활용</strong></td></tr>
+        <tr><td>수수료</td><td>다나와에 정보·UI 라이선스 또는 트래픽 송출 수수료</td></tr>
+        <tr><td>보험 전환</td><td>인도 시점 아정당이 처리</td></tr>
+      </table>
+      <p><strong>장점:</strong> 다나와 핵심 자산 요구 없음 → 협업 합의 가능성 높음. 당사 딜러 자산 활용으로 자립도 확보.</p>
+      <p><strong>단점:</strong> 1,600 딜러의 인바운드 처리 역량 검증이 선결 과제. 권역별 분포·응답속도 등 실측 필요.</p>
+      <p><strong>예상 다나와 입장:</strong> 자기 자산 보호되면서 트래픽·라이선스 매출 확보. 수용 가능성 상대적으로 높음.</p>
+    </div>
+
+    <h3>합의가 필요한 안건 (미팅에서 결정)</h3>
+    <ol>
+      <li>시나리오 1·2 중 다나와 측 수용 범위 확인</li>
+      <li>차량 DB·UI 라이선스 형태와 수수료</li>
+      <li>딜러 네트워크 활용 시 CPA 단가</li>
+      <li>리드 어트리뷰션 (다나와 직접 vs 아정당 경유 구분)</li>
+      <li>장기렌트/리스 영역 우선 적용 여부</li>
+      <li>그룹 차원의 사전 조율 (커넥트웨이브 본사 레벨)</li>
+    </ol>
+
+    <h3>양사 기대 효과</h3>
+    <ul>
+      <li><strong>다나와:</strong> 아정당 유튜브 기반 신규 트래픽 유입, 보험 cross-sell 효과로 그룹 GMV 가산</li>
+      <li><strong>아정당:</strong> 자동차 카테고리 인입 확보, 자동차보험 매출 채널 확대</li>
+    </ul>
+
+  </div>
+</details>
+
+<!-- ===================== 9. 수익 시나리오 ===================== -->
+<details>
+  <summary><span class="num">09</span>예상 수익 시나리오 검토</summary>
+  <div class="body">
+
+    <div class="callout warn">
+      <span class="tag">주의</span>
+      본 시나리오는 <strong>가정 기반의 예시</strong>이며, 실제 단가·전환율 확정 전.
+      미팅 후 실제 수치로 재산출 필요.
+    </div>
+
+    <details open>
+      <summary>시나리오 A — 보험 전환 중심 수익화 (디폴트 모델)</summary>
+      <div class="body">
+        <p>자동차 리드 CPA 자체는 박마진, 보험 전환이 본 수익원:</p>
+        <ul>
+          <li>월 자동차 견적 리드 수집 수 × 자동차→보험 전환율 = 월 보험 가입 추정</li>
+          <li>월 보험 가입 × 보험 1건 평균 마진 = 월 보험 매출</li>
+          <li>여기에 자동차 견적 CPA 수익 가산</li>
+        </ul>
+        <p><strong>평가:</strong> 보험 전환율과 1건 평균 마진을 보험팀에서 실측치로 받으면 수익 모델 단단해짐. 1~2개월 시범 운영으로 모델 검증 가능.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 B — 자동차 CPA 단독 수익화 (참고)</summary>
+      <div class="body">
+        <p>보험 전환 없이 자동차 CPA만으로 수익 산정. 다나와와 동일한 영역에서 경쟁하는 모양새가 되어 그룹 시너지 명분 약화. <strong>본 시나리오 단독 추진은 권장하지 않음</strong>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 C — 장기렌트·리스 집중 (2030 타깃)</summary>
+      <div class="body">
+        <p>2030 세대의 신차→리스/렌트 이동 추세를 활용. 신차 견적보다 진입 장벽 낮을 가능성:</p>
+        <ul>
+          <li>당사 핵심 타깃과 일치 (2030 인터넷·렌탈 이용층과 중복)</li>
+          <li>월 납입 구조라 당사 결합 상품 모델과 호환</li>
+          <li>롯데렌탈·KB캐피탈 등 공급사가 다수 → 협업 옵션 풍부</li>
+        </ul>
+        <p><strong>평가:</strong> 1단계 진입 영역으로 가장 유망. 시나리오 A의 하위 옵션으로 통합 운영 가능.</p>
+      </div>
+    </details>
+
+    <div class="callout key">
+      <span class="tag">분석 결론</span>
+      신차·렌트/리스 영역의 수익화는 <strong>보험 전환 결합 (시나리오 A)</strong>이 디폴트.
+      1단계로 <strong>장기렌트·리스 (시나리오 C)</strong> 영역에서 시범 운영하며 전환율을 실측한 후, 신차 견적 확장 여부 결정하는 것이 합리적 순서.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 10. 리스크 & 액션 ===================== -->
+<details>
+  <summary><span class="num">10</span>리스크 & 다음 단계</summary>
+  <div class="body">
+
+    <h3>실측·검증 필요 항목</h3>
+    <table>
+      <tr><th>항목</th><th>방법</th><th>담당</th></tr>
+      <tr><td>당사 1,600 자동차 딜러의 실 활성도·인바운드 처리 역량</td><td>딜러 표본 조사·내부 데이터 분석</td><td>보험·딜러 관리팀</td></tr>
+      <tr><td>자동차 리드 → 보험 가입 전환율</td><td>1단계 시범 운영 후 실측</td><td>실무</td></tr>
+      <tr><td>다나와 자동차 측 CPA 단가·딜러 네트워크 공유 가능성</td><td>실무 미팅</td><td>실무</td></tr>
+      <tr><td>장기렌트·리스 공급사 협업 가능 범위</td><td>롯데렌탈·KB캐피탈 등 접촉</td><td>사업개발</td></tr>
+      <tr><td>커넥트웨이브 그룹 차원의 사전 조율</td><td>본사 라인 협의</td><td>경영진</td></tr>
+    </table>
+
+    <h3>주요 리스크</h3>
+    <ul>
+      <li><strong>다나와 측 핵심 자산 공유 거부:</strong> 시나리오 1 불가 시 시나리오 2로 디폴트. 단 시나리오 2는 당사 딜러 자산의 실효성에 좌우됨.</li>
+      <li><strong>1,600 딜러 자산 부족:</strong> 표면 숫자와 실 활성도 간 괴리 시 시나리오 2도 어려움. 사전 검증 필수.</li>
+      <li><strong>보험 전환율 미달:</strong> 자동차 리드의 보험 전환이 가정 대비 낮을 경우 노마진 운영 정당화 어려움.</li>
+      <li><strong>그룹 내 자원 충돌:</strong> 커넥트웨이브 산하 다나와 자동차와의 자원·KPI 충돌 가능성. 그룹 사전 조율 부재 시 실무 단계에서 표면화.</li>
+    </ul>
+
+    <h3>즉시 액션 (실무자)</h3>
+    <ol>
+      <li>당사 1,600 딜러 자산 실측 — 권역별 분포, 활성도, 인바운드 처리 의향 조사</li>
+      <li>보험팀과 자동차 리드 → 보험 전환율 시뮬레이션 (과거 데이터 기반)</li>
+      <li>다나와 자동차 측 실무 미팅 일정 잡기 (시나리오 1·2 사전 검토 자료 송부)</li>
+      <li>장기렌트·리스 공급사 연결 가능성 사전 탐색 (1단계 시범용)</li>
+      <li>커넥트웨이브 본사 레벨에서의 자동차 사업 시너지 안건 상정 검토</li>
+    </ol>
+
+  </div>
+</details>
+
+<footer class="doc">
+  본 문서는 미팅 이전 사전 검토안. 단가·전환율·딜러 자산 실측 후 v1 확정. 신뢰도 보통/낮음 항목은 검증 전 외부 인용 금지. 중고차 영역은 별도 기획안 참조.
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아정당 × 다나와 — PC 사업 1차 진입 기획안</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
+    --line: #e5e3dc;
+    --accent: #6b2c2c;
+    --accent-soft: #f5ecec;
+    --warn: #8a6d3b;
+    --warn-soft: #fbf6e9;
+    --ok-soft: #eef3ed;
+    --code-bg: #f0ede5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "tnum" 1;
+    line-height: 1.7;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+  }
+  header.doc {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  h1.title {
+    font-size: 30px;
+    line-height: 1.3;
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .meta span::before { content: "· "; color: var(--ink-faint); margin-right: 2px; }
+  .meta span:first-child::before { content: ""; margin: 0; }
+
+  details {
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+  }
+  details[open] { padding-bottom: 24px; }
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before {
+    content: "+";
+    display: inline-block;
+    width: 20px; height: 20px;
+    line-height: 18px;
+    text-align: center;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 400;
+    flex-shrink: 0;
+    transition: transform .2s ease;
+  }
+  details[open] > summary::before { content: "−"; }
+  details .num {
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    margin-right: 6px;
+    font-size: 14px;
+  }
+  details .body {
+    padding-left: 34px;
+    color: var(--ink-soft);
+  }
+  details .body h3 {
+    color: var(--ink);
+    font-size: 15px;
+    margin: 24px 0 10px;
+    font-weight: 600;
+  }
+  details .body h3:first-child { margin-top: 4px; }
+  details .body p { margin: 0 0 12px; }
+  details .body ul, details .body ol {
+    margin: 0 0 14px;
+    padding-left: 20px;
+  }
+  details .body li { margin-bottom: 6px; }
+  details .body strong { color: var(--ink); font-weight: 600; }
+
+  /* Nested toggles */
+  details details {
+    border-bottom: 1px dashed var(--line);
+    margin-left: -10px;
+  }
+  details details:last-child { border-bottom: none; }
+  details details > summary {
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  details details > summary::before {
+    width: 16px; height: 16px;
+    line-height: 14px;
+    font-size: 12px;
+  }
+  details details .body { padding-left: 30px; font-size: 14px; }
+
+  /* Summary section (always visible) */
+  .summary-box {
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin-bottom: 32px;
+    border-radius: 2px;
+  }
+  .summary-box h2 {
+    margin: 0 0 14px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .summary-box .lead {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 0 16px;
+    font-weight: 500;
+  }
+  .summary-box ul {
+    margin: 0; padding-left: 18px;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .summary-box ul li { margin-bottom: 4px; }
+
+  /* Stat grid */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0 20px;
+  }
+  .stat {
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+    background: #fff;
+  }
+  .stat .label {
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .stat .value {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .stat .sub {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  /* Callouts */
+  .callout {
+    border-left: 3px solid;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14px;
+    border-radius: 0 2px 2px 0;
+  }
+  .callout .tag {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .callout.warn { background: var(--warn-soft); border-color: var(--warn); }
+  .callout.warn .tag { color: var(--warn); }
+  .callout.key { background: var(--accent-soft); border-color: var(--accent); }
+  .callout.key .tag { color: var(--accent); }
+  .callout.note { background: var(--ok-soft); border-color: #4a6c4d; }
+  .callout.note .tag { color: #4a6c4d; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 14px 0;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--code-bg);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+  td { color: var(--ink-soft); }
+  td strong { color: var(--ink); }
+
+  /* Source tag */
+  .src {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+    font-style: italic;
+  }
+  .confidence {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-weight: 500;
+  }
+  .confidence.high { background: var(--ok-soft); color: #3d5a40; }
+  .confidence.mid { background: var(--warn-soft); color: var(--warn); }
+  .confidence.low { background: var(--accent-soft); color: var(--accent); }
+
+  /* TOC */
+  .toc {
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .toc .toc-title {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .toc ol { margin: 0; padding-left: 22px; color: var(--ink-soft); }
+  .toc ol li { margin-bottom: 3px; }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    font-size: 12px;
+  }
+  .controls button {
+    border: 1px solid var(--line);
+    background: #fff;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 12px;
+    border-radius: 2px;
+    transition: all .15s ease;
+  }
+  .controls button:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  footer.doc {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 24px 0;
+  }
+
+  @media print {
+    details { page-break-inside: avoid; }
+    details > .body { display: block !important; }
+    summary::before { display: none; }
+    .controls { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 32px 18px 64px; }
+    h1.title { font-size: 24px; }
+    .stats { grid-template-columns: 1fr; }
+    details .body { padding-left: 0; }
+    details details .body { padding-left: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <div class="eyebrow">아정당 × 다나와 — 1차 진입 기획안</div>
+  <h1 class="title">PC 사업 시장 진입 전략 및 다나와 협업 파일럿 제안</h1>
+</header>
+
+<div class="summary-box">
+  <h2>한눈에 보기</h2>
+  <p class="lead">
+    다나와 인큐베이팅 단계에서 <strong>완제품 가성비 PC</strong>로 시장에 진입. 1차 목표는 PC 자체 수익이 아니라
+    <strong>"아정당이 컴퓨터도 한다"는 카테고리·트래픽 확보 및 운영 역량 내재화.</strong>
+    PC 시장은 마진 1~2% 박리다매라 단독 진입은 위험하나, 다나와 백엔드 + 아정당 브랜드 인입의 결합이 현실적.
+    또한 <strong>PC 사용 체감의 절반은 인터넷이 결정</strong>한다는 점에서 본업(인터넷·렌탈)과 자연스럽게 연결됨.
+  </p>
+  <ul>
+    <li>국내 PC 출하 <strong>474만대 / 연</strong>, 가정용 시장 회복 국면 (AI PC·Win10 종료 효과)</li>
+    <li>업계 1위 컴퓨존조차 영업이익률 <strong>1.6~1.9%</strong>, 중소·신생은 줄폐업 — 단독 진입 시 조기 도태 위험</li>
+    <li><strong>핵심 메커니즘: PC + 인터넷 결합상품.</strong> 인터넷 가입 마진을 PC 가격 할인 재원으로 투입(최대 약 48만원). 당사 결합 판매 모델의 PC 카테고리 확장</li>
+    <li>완제품 1~2 SKU 위탁/드롭십으로 0단계 시작, AS 백엔드 다나와 흡수가 비협상 1순위</li>
+  </ul>
+</div>
+
+<div class="toc">
+  <div class="toc-title">목차</div>
+  <ol>
+    <li>PC 시장 현황 — 규모·트렌드</li>
+    <li>경쟁 구도 — TOP3, 중견, 신생/폐업</li>
+    <li>PC 사업 마진·수익 구조 (왜 이 시장이 박한가)</li>
+    <li>PC 기본 상식 — 보고 전 알아둘 내용</li>
+    <li>아정당 진입 전략 — 포지셔닝·로드맵·비협상 항목</li>
+    <li>결합상품 모델 — PC + 인터넷 번들 (핵심 수익 메커니즘)</li>
+    <li>PC × 인터넷 — 왜 같이 봐야 하는가 (본업 연결 논리)</li>
+    <li>다나와 협업 1차 제안 (1페이지)</li>
+    <li>"2년 영업이익 1억" 주장 — 시나리오 검토</li>
+    <li>리스크 & 다음 단계</li>
+  </ol>
+</div>
+
+<div class="controls">
+  <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">전체 펼치기</button>
+  <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">전체 접기</button>
+  <button onclick="window.print()">인쇄 / PDF</button>
+</div>
+
+<!-- ===================== 1. 시장 현황 ===================== -->
+<details open>
+  <summary><span class="num">01</span>PC 시장 현황 — 규모와 트렌드</summary>
+  <div class="body">
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">2024 국내 PC 출하</div>
+        <div class="value">474만대</div>
+        <div class="sub">YoY −1.1%</div>
+      </div>
+      <div class="stat">
+        <div class="label">가정용 PC 시장</div>
+        <div class="value">+1.0%</div>
+        <div class="sub">AI PC 효과로 회복</div>
+      </div>
+      <div class="stat">
+        <div class="label">AI PC 비중</div>
+        <div class="value">약 25%</div>
+        <div class="sub">2026년 50% 이상 전망</div>
+      </div>
+    </div>
+    <p class="src">자료: 한국IDC, 2025.2 발표. <span class="confidence high">신뢰도 높음</span></p>
+
+    <details>
+      <summary>핵심 트렌드 4가지</summary>
+      <div class="body">
+        <h3>1) 회복 국면이지만 본격 반등은 지연</h3>
+        <p>2024 4Q 기준 국내 PC 시장 전년 대비 0.0% (보합). AI PC, Win10 지원 종료 교체 수요, 온라인 채널 강화로 낙폭은 완화됐으나 경기·정치 불확실성으로 본격 회복은 지연 전망.</p>
+
+        <h3>2) Win10 지원 종료 (2025.10) — 기업 PC 교체 사이클</h3>
+        <p>금융·공공·대기업 중심으로 강제 교체 수요 발생. 2025년 시작 → 2026년까지 분산 집행. 기업 부문 진입은 우리 1차 타깃 아니지만, 가정 시장에도 노후 PC 교체 분위기 형성.</p>
+
+        <h3>3) AI PC 흐름 (가격 인상 압력)</h3>
+        <p>2024년 신규 판매 PC의 약 25%가 NPU 탑재 "AI PC". 2026년 절반 이상 예상. 단, 사용자가 AI 기능을 실제로 원해서 사는지는 불확실 — 마케팅 키워드로는 활용도 있음.</p>
+
+        <h3>4) 채널 구조: 온라인 자사몰 > 오프라인 양판점 > 용산</h3>
+        <p>오프라인(전자랜드·하이마트)은 비중 감소. 온라인 자사몰(컴퓨존·아이코다)이 주류. 용산 전자상가 조립업체는 폐업 가속. <strong>아정당은 자사몰형 진입이 자연스러움.</strong></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시장 구분 — 가정 / 게이밍 / 사무·기업</summary>
+      <div class="body">
+        <table>
+          <tr><th>세그먼트</th><th>특성</th><th>아정당 적합도</th></tr>
+          <tr><td><strong>가정용 일반</strong></td><td>인터넷·문서·OTT 위주, 50~120만원대</td><td>높음 (가성비 포지셔닝)</td></tr>
+          <tr><td><strong>게이밍</strong></td><td>250~300만원 평균, 고마진 보이나 경쟁 치열</td><td>낮음 (다나와·컴퓨존 본진)</td></tr>
+          <tr><td><strong>사무·기업</strong></td><td>대량 발주, 표준화·보안 요구</td><td>중간 (B2B 인프라 필요, 후순위)</td></tr>
+          <tr><td><strong>크리에이터/AI</strong></td><td>고사양 작업용, 신흥 세그먼트</td><td>낮음 (전문 수요, 우리 강점 아님)</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 2. 경쟁 구도 ===================== -->
+<details>
+  <summary><span class="num">02</span>경쟁 구도 — TOP3, 중견, 신생/폐업</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 인사이트</span>
+      업계 1위도 영업이익률 <strong>1.9%</strong>. PC 단품 마진으로 사업하면 죽는다. 모두가 박리다매 + 다른 수익원(AS·부품·B2B)으로 버티는 구조.
+    </div>
+
+    <details open>
+      <summary>1티어 — 컴퓨존, 다나와(커넥트웨이브)</summary>
+      <div class="body">
+        <table>
+          <tr><th>업체</th><th>2024 매출</th><th>영업이익(률)</th><th>특징</th></tr>
+          <tr>
+            <td><strong>컴퓨존</strong></td>
+            <td>1조 1,315억</td>
+            <td>216억 (1.91%)</td>
+            <td>4년 연속 1조 매출, AS망 자체 운영, B2B 회원 5만, 5천여 협력업체. 조립PC 단일: 23만대 / 1,970억 (대당 약 85만원)</td>
+          </tr>
+          <tr>
+            <td><strong>커넥트웨이브</strong><br>(다나와·에누리)</td>
+            <td>4,603억 (2023 연결)</td>
+            <td>365억 (7.9%)</td>
+            <td>가격비교 + 데이터커머스 + 이커머스솔루션. 다나와 단독 1,846억 (2024)</td>
+          </tr>
+        </table>
+        <p class="src">자료: 컴퓨존 보도자료(한국경제 2024), 캐치/잡코리아 공시기준, 커넥트웨이브 IR. <span class="confidence high">신뢰도 높음</span></p>
+
+        <h3>경쟁 포지션</h3>
+        <ul>
+          <li><strong>컴퓨존:</strong> 조립PC·완제품 직접 판매 + 자체 AS센터 + 직매입 자사몰. 우리가 정면승부 불가능한 영역.</li>
+          <li><strong>다나와:</strong> 가격비교·정보 플랫폼 + 샵다나와(자체 판매). 우리 인큐 파트너이자 카테고리 SEO 경쟁자.</li>
+        </ul>
+
+        <div class="callout warn">
+          <span class="tag">관계 메모</span>
+          커넥트웨이브가 2026.1 아정당 경영권을 약 1,500억에 인수 (공개 보도 기준, 브런치 '리스팅' 분석). MBK 1조 선행 투자 수익화 일환. 단순 투자사가 아닌 <strong>모회사 관계</strong>이므로, "독자 행보"의 한계가 존재함. 단, 자회사 간 경쟁/협력 구도는 운용 가능.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>중견 — 아이코다, 행복쇼핑, 컴스클럽, 조이젠</summary>
+      <div class="body">
+        <p>온라인 자사몰 기반 중견 PC 쇼핑몰들. 전반적으로 <strong>박한 마진으로 버티는 구조</strong>로 알려져 있음.</p>
+
+        <table>
+          <tr><th>업체</th><th>특징</th><th>현황 (정성)</th></tr>
+          <tr><td><strong>아이코다</strong></td><td>1999 설립, 컴퓨터 쇼핑몰 자칭 1위, 게이밍 PC 시리즈 운영</td><td>매출 규모는 있으나 영업이익 박함 (커뮤니티 통설: 천만원대~마이너스)</td></tr>
+          <tr><td><strong>행복쇼핑(pping)</strong></td><td>가격비교·견적 특화, 무이자할부 강조</td><td>가격비교 모델 (다나와와 유사)</td></tr>
+          <tr><td><strong>컴스클럽 / 조이젠 / 디비디오 / 다나와샵 (샵다나와)</strong></td><td>온라인 조립PC 전문</td><td>박리다매, 시즌성 의존</td></tr>
+        </table>
+        <p class="src">자료: 커뮤니티(쿨엔조이/퀘이사존) 정성 정보 + 공개 페이지. <span class="confidence mid">신뢰도 보통 — 공시 재무는 별도 확인 필요</span></p>
+
+        <div class="callout note">
+          <span class="tag">시사점</span>
+          중견급에서도 마진은 1~2%대 또는 그 이하. 우리가 "PC로 돈을 벌겠다"는 단순 진입은 이들과 같은 늪에 빠진다는 뜻. <strong>차별화 레버 없이는 진입 의미가 없다.</strong>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>신생/소형 — 줄폐업 진행 중</summary>
+      <div class="body">
+        <p>용산 전자상가 조립 PC 점포는 두 달 새 30개 이상 매물 등장 (2022 한국경제 보도 기준). PC방은 2018년 9,459개 → 2023년 7월 6,990개로 5년 새 약 26% 감소 <span class="confidence high">신뢰도 높음</span>. 조립PC 최대 고객인 PC방 축소 + 모바일·콘솔 전환 + 완제품 가격 경쟁력 등이 복합 원인.</p>
+
+        <ul>
+          <li>"두 달 새 점포 30곳 문 닫아" — 부품 가격 변동성·고환율 + 개인 고객 수요 급감</li>
+          <li>완제품 PC가 조립 대비 가격경쟁력을 확보 → 조립 시장 자체가 위축</li>
+        </ul>
+
+        <div class="callout warn">
+          <span class="tag">의미</span>
+          신생 단독 진입이 "약 2년만 버티면 괜찮다"는 다나와 측 의견은 <strong>완제품 시장 회복기 + 다나와 백엔드 활용</strong> 전제일 때만 성립. 우리가 부품 조립 영역에 들어가면 위 폐업 행렬에 합류할 위험이 큼. → <strong>완제품 한정 진입 결정은 옳음.</strong>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 3. 마진/수익 구조 ===================== -->
+<details>
+  <summary><span class="num">03</span>PC 사업 마진·수익 구조 — 왜 이 시장이 박한가</summary>
+  <div class="body">
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">업계 1위 영업이익률</div>
+        <div class="value">1.9%</div>
+        <div class="sub">컴퓨존 2024 기준</div>
+      </div>
+      <div class="stat">
+        <div class="label">조립PC 평균 단가</div>
+        <div class="value">~85만원</div>
+        <div class="sub">컴퓨존 23만대 / 1,970억 환산</div>
+      </div>
+      <div class="stat">
+        <div class="label">게이밍PC 평균</div>
+        <div class="value">250~300만</div>
+        <div class="sub">다나와 측 발언</div>
+      </div>
+    </div>
+
+    <h3>왜 이렇게 박한가</h3>
+    <ul>
+      <li><strong>부품 가격 투명성:</strong> 다나와·에누리에서 모든 부품 최저가가 실시간 노출 → 판매자가 마진 숨길 곳이 없음.</li>
+      <li><strong>국제 원자재·환율 노출:</strong> CPU·GPU·메모리 모두 해외 원가 + 환율. 인상분을 가격에 전가하기 어려움.</li>
+      <li><strong>AS·반품 부담:</strong> 부품 단위 하자율, 초기 불량률, 호환성 문제로 사후처리가 무거움. 다나와 발언 그대로 "사후처리가 너무 많아 제휴업체들이 힘들어함".</li>
+      <li><strong>저성장 시장:</strong> 국내 PC 출하 -1.1% (2024). PC방 5년간 26% 감소 등 구조적 수요 정체.</li>
+    </ul>
+
+    <div class="callout key">
+      <span class="tag">전략적 결론</span>
+      박한 마진 구조에서 신규 진입자가 PC 단품으로 수익을 내는 모델은 비현실적.
+      <strong>PC 단품 수익 대신 트래픽·카테고리·운영 역량 확보</strong>를 목적함수로 설정하고, 인큐베이팅 기간 동안 다나와 백엔드를 활용하는 것이 노마진 진입의 근거.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 4. PC 기본 상식 ===================== -->
+<details>
+  <summary><span class="num">04</span>PC 기본 상식 — 보고 전 알아둘 내용</summary>
+  <div class="body">
+
+    <details>
+      <summary>완제품 PC vs 조립 PC — 무엇이 다른가</summary>
+      <div class="body">
+        <table>
+          <tr><th></th><th>완제품 PC</th><th>조립 PC</th></tr>
+          <tr><td><strong>판매 형태</strong></td><td>제조사 브랜드(삼성·LG·HP·레노버 등) 일체형</td><td>부품 선택 → 조립사가 조립한 사양</td></tr>
+          <tr><td><strong>AS</strong></td><td>제조사 통합 (1년 무상 보증 등)</td><td>부품별 제조사 보증 + 조립사 처리</td></tr>
+          <tr><td><strong>가격</strong></td><td>상대적 비쌈, 마진 안정</td><td>구성에 따라 가성비 우수</td></tr>
+          <tr><td><strong>아정당 진입 적합성</strong></td><td><strong>높음</strong> — AS 단순, 부품 호환 리스크 없음</td><td>낮음 — 부품 수급·호환·CS 부담</td></tr>
+        </table>
+        <p>우리 결정: <strong>완제품만</strong>. 부품·조립은 다나와도 어렵다고 했고, 신생이 진입하면 폐업 위험.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>가격대별 시장 (대략)</summary>
+      <div class="body">
+        <table>
+          <tr><th>가격대</th><th>주 세그먼트</th><th>키워드 의도</th></tr>
+          <tr><td>40~70만원</td><td>사무·문서·인강·자취</td><td>가성비, 사무용, 자취컴, 입문</td></tr>
+          <tr><td>80~150만원</td><td>일반 게임·작업·가정</td><td>가성비 게임, 롤·발로란트, 영상</td></tr>
+          <tr><td>200~300만원</td><td>고사양 게이밍·크리에이터</td><td>고사양, RTX, AAA 게임</td></tr>
+          <tr><td>300만원~</td><td>전문 작업·하이엔드</td><td>워크스테이션, AI/렌더링</td></tr>
+        </table>
+        <p>우리 1차 타깃: <strong>40~120만원 가성비 구간</strong>. 게이밍 본진 회피 + 다나와 강점 비활용 영역.</p>
+        <p class="src">가격대 구분은 시장 통념 + 다나와/에누리 가성비 견적 참조. <span class="confidence mid">신뢰도 보통 — 키워드도구 실측으로 확정 필요</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>AS 구조 — 왜 사후처리가 무거운가</summary>
+      <div class="body">
+        <p>완제품도 AS 부담이 있지만 조립PC만큼은 아니다. 다나와가 말한 "사후처리"는 주로 조립PC 기준.</p>
+        <ul>
+          <li><strong>부품별 보증 따로:</strong> CPU(인텔/AMD), GPU(엔비디아/AMD), 메모리, 저장장치, 파워, 케이스 — 각각 제조사 보증 기간·조건이 다름. 고객은 어디로 보낼지 모름 → 판매자에게 전화.</li>
+          <li><strong>호환성 이슈:</strong> 부품 조합에 따른 부팅 실패·블루스크린·발열 등. 제조사가 책임 회피하기 쉬움.</li>
+          <li><strong>초기 불량률:</strong> CPU·메모리·SSD 모두 일정 비율로 초기 불량 존재. 교체 시 왕복 택배비.</li>
+          <li><strong>완제품의 장점:</strong> 위 모든 게 제조사 하나로 통합 → 신생이 진입할 때 부담 격감.</li>
+        </ul>
+        <div class="callout key">
+          <span class="tag">우리 전략 연결</span>
+          <strong>AS 백엔드 = 다나와가 흡수</strong>해야 하는 협상 1순위. 완제품 + 위탁/드롭십 + AS 패스스루 = 신생도 운영 가능한 최소 단위.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>알아두면 좋은 용어 (보고 자리에서 헷갈리지 않게)</summary>
+      <div class="body">
+        <table>
+          <tr><th>용어</th><th>의미</th></tr>
+          <tr><td><strong>CPU</strong></td><td>인텔(코어 i3/i5/i7/i9) 또는 AMD(라이젠 3/5/7/9). 숫자 클수록 고성능.</td></tr>
+          <tr><td><strong>GPU(그래픽카드)</strong></td><td>NVIDIA(RTX 4060/4070...) 또는 AMD. 게이밍 성능 핵심.</td></tr>
+          <tr><td><strong>RAM(메모리)</strong></td><td>8/16/32GB. 16GB가 표준, 8GB는 저가형.</td></tr>
+          <tr><td><strong>SSD</strong></td><td>저장장치. NVMe SSD가 표준. 용량 256/512GB/1TB.</td></tr>
+          <tr><td><strong>NPU/AI PC</strong></td><td>NPU(신경망 처리장치) 탑재 PC. 2024년부터 마케팅 키워드화.</td></tr>
+          <tr><td><strong>위탁·드롭십</strong></td><td>재고를 직접 사지 않고 주문이 들어오면 공급사가 직배송. 재고 리스크 0.</td></tr>
+          <tr><td><strong>MAP</strong></td><td>Minimum Advertised Price. 최소 광고가. 판매자가 이 가격 이하로 광고 못하게 묶는 조항. <strong>우리가 절대 받아들이면 안 되는 조건.</strong></td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 5. 아정당 진입 전략 ===================== -->
+<details>
+  <summary><span class="num">05</span>아정당 진입 전략 — 포지셔닝·로드맵·비협상 항목</summary>
+  <div class="body">
+
+    <h3>한 줄 정의</h3>
+    <p>당사 유튜브 기반 브랜드 인지도를 활용해 <strong>"가성비 완제품 PC"</strong> 카테고리에 진입.
+    PC 자체 마진이 아닌 <strong>카테고리·트래픽 확보 및 운영 역량 내재화</strong>를 1차 목표로 함.</p>
+
+    <details open>
+      <summary>진입 전제 (이미 결정된 사항)</summary>
+      <div class="body">
+        <ul>
+          <li><strong>완제품 한정.</strong> 부품·조립은 사후처리 부담·낮은 마진으로 제외. 다나와도 부품은 어렵다는 입장 → 우리가 먼저 NO를 던진다.</li>
+          <li><strong>포지션: 가성비/입문.</strong> 다나와 강세 영역(고가 게이밍)과의 직접 경쟁 회피. 노마진 운영으로 실질 최저가 구현이 가능한 점이 당사의 차별 요소.</li>
+          <li><strong>인큐베이팅 단계.</strong> 초기 PC 수익은 다나와로 넘기고, 우리는 트래픽·전환 데이터·운영 역량 확보.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details open>
+      <summary>양사 역할 (강점 기반 R&R)</summary>
+      <div class="body">
+        <table>
+          <tr><th>영역</th><th>아정당</th><th>다나와</th></tr>
+          <tr><td>수요 창출</td><td><strong>유튜브 PPL·브랜드 인입, 가성비 마케팅</strong></td><td>—</td></tr>
+          <tr><td>고객 접점</td><td><strong>랜딩·상품페이지·CS 1차, 고객 데이터 보유</strong></td><td>—</td></tr>
+          <tr><td>상품·매입</td><td>—</td><td><strong>완제품 소싱·매입가</strong></td></tr>
+          <tr><td>풀필먼트</td><td>—</td><td><strong>배송·물류</strong></td></tr>
+          <tr><td>AS·사후처리</td><td>1차 접수 창구만</td><td><strong>AS 백엔드 흡수 (협상 핵심)</strong></td></tr>
+          <tr><td>정산</td><td>—</td><td><strong>정산 주체</strong></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>차별화 레버 — 결합상품 + 보증</summary>
+      <div class="body">
+        <p><strong>1차 차별화 = 결합상품 모델 (섹션 06 상세).</strong> PC + 인터넷 결합으로 PC 표시가를 최대 약 48만원 인하. 통신·렌탈 사업의 마진을 PC 가격 경쟁력으로 전환하는 메커니즘. <strong>경쟁사가 모방하기 어려운 구조</strong> (다나와·컴퓨존은 인터넷 사업자 아님).</p>
+        <p><strong>2차 차별화 = 보증 강화.</strong> PC 단발 판매로는 통신식 대형 선현금 재원을 확보하기 어려움. 대신 당사 이사 사업의 120% 배상 모델과 같은 보증 강화 정책으로 신뢰 구축:</p>
+        <ul>
+          <li><strong>AS 보증:</strong> "사유 불문 무상 즉시교체 + 왕복택배 무료" 형태. 다나와가 AS 백엔드를 흡수하면 추가 비용 없이 업계 최강 수준의 보증 약속 가능.</li>
+          <li><strong>성능 보증:</strong> "지정 게임/옵션에서 기준 프레임 미달 시 무상 업그레이드" 같은 명확한 약속.</li>
+          <li><strong>최저가 매칭은 채택 안 함.</strong> 다나와가 실시간 최저가 노출하는 환경이라 가성비 세그먼트에서 가장 자주 깨질 약속.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>키워드 전략 (실측 필요 — 후보)</summary>
+      <div class="body">
+        <p>네이버 검색광고 키워드도구(searchad.naver.com)에서 월간검색수 실측 후 확정. 아래는 비게이밍·가성비 클러스터 후보:</p>
+        <ul>
+          <li><strong>1순위 후보:</strong> 가성비컴퓨터, 가성비PC, 사무용컴퓨터, 사무용PC</li>
+          <li><strong>보조 후보:</strong> 자취컴퓨터, 자취PC, 미니PC, 입문용PC</li>
+          <li><strong>회피:</strong> 게이밍컴퓨터, 조립컴퓨터 (다나와·컴퓨존 본진 → 진입비용 큼)</li>
+        </ul>
+        <p class="src">키워드 볼륨은 미실측. 다나와도구·블랙키위·아이템스카우트로 확인. <span class="confidence low">신뢰도 낮음 — 사용 전 실측 필수</span></p>
+      </div>
+    </details>
+
+    <details open>
+      <summary>단계별 로드맵 (작게 → 빠르게 → 게이트)</summary>
+      <div class="body">
+        <table>
+          <tr><th>단계</th><th>기간</th><th>목표</th><th>핵심 활동</th></tr>
+          <tr>
+            <td><strong>0단계</strong></td>
+            <td>1~2주</td>
+            <td>펀널 가동·인입 실측</td>
+            <td>완제품 1~2 SKU, 위탁·드롭십, AS 패스스루. 매출 목표 아님.</td>
+          </tr>
+          <tr>
+            <td><strong>1단계</strong></td>
+            <td>2~4주</td>
+            <td>카테고리 콘텐츠 폭 확대</td>
+            <td>상품·스펙·가격 데이터 접근권 확보, 가성비 카테고리 콘텐츠 제작</td>
+          </tr>
+          <tr>
+            <td><strong>2단계</strong></td>
+            <td>마일스톤 게이트</td>
+            <td>운영 자율도·수익성 단계 오픈</td>
+            <td>N대/N개월 달성 시 매입원가·수수료·수익쉐어 단계 협상</td>
+          </tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>비협상·확보 항목 (협상 가이드)</summary>
+      <div class="body">
+        <ol>
+          <li><strong>AS·CS·풀필먼트 = 다나와 흡수.</strong> 제품 마진을 넘기는데 운영비까지 먹으면 노마진이 아니라 적자.</li>
+          <li><strong>고객 데이터 + 인입 프론트 = 아정당 소유.</strong> 향후 협상력의 본체.</li>
+          <li><strong>판매가 자율권.</strong> 가격 하한·MAP 불가. 노마진 최저가가 전략의 전부.</li>
+          <li><strong>2년 후 수익쉐어는 구두 금지 → 트리거/공식 문서화.</strong> 레버리지는 헌납 전이 최고.</li>
+        </ol>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 6. 결합상품 모델 ===================== -->
+<details>
+  <summary><span class="num">06</span>결합상품 모델 — PC + 인터넷 번들 (핵심 수익 메커니즘)</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 아이디어</span>
+      PC는 다나와 백엔드로 노마진 또는 박마진 공급.
+      <strong>인터넷 가입에서 발생하는 마진(지원금/판매수수료)을 PC 가격 할인 재원으로 투입</strong>해, 결합 가입 시 PC를 단독 대비 큰 폭으로 저렴하게 제공하는 모델.
+      당사가 통신·렌탈 사업에서 운영해온 "현금성 지원 + 약정" 구조의 PC 확장.
+    </div>
+
+    <h3>판매 구조 — 단독 + 결합 듀얼 트랙</h3>
+    <table>
+      <tr><th>판매 형태</th><th>가격</th><th>아정당 수익원</th><th>목적</th></tr>
+      <tr>
+        <td><strong>PC 단독</strong></td>
+        <td>가성비 정상가 (노마진~박마진)</td>
+        <td>없음 (트래픽·카테고리 진입 효과)</td>
+        <td>컴퓨터 키워드 인입·노출</td>
+      </tr>
+      <tr>
+        <td><strong>PC + 인터넷 결합</strong></td>
+        <td>PC 정상가 − 최대 약 48만원 할인</td>
+        <td><strong>인터넷 가입 마진</strong></td>
+        <td>본업 가입자 확보 + PC 가격 파괴력</td>
+      </tr>
+    </table>
+
+    <div class="callout warn">
+      <span class="tag">중요</span>
+      <strong>단독·결합 선택 구조 필수.</strong> 강제 결합으로 가면 "컴퓨터" 검색 인입한 비-결합 의도 고객을 모두 놓침 → 카테고리 진입 효과가 사라짐.
+      단독은 인입·노출용, 결합은 수익화용. 둘 다 살려야 함.
+    </div>
+
+    <details open>
+      <summary>수익 메커니즘 — 돈이 어떻게 도는가</summary>
+      <div class="body">
+        <p>예시 시뮬레이션 (수치는 모두 예시·실제는 협상·계약 기준):</p>
+        <table>
+          <tr><th>항목</th><th>PC 단독</th><th>PC + 인터넷 결합</th></tr>
+          <tr><td>PC 매입가 (다나와)</td><td>예: 80만원</td><td>예: 80만원</td></tr>
+          <tr><td>PC 표시 판매가</td><td>82만원 (가성비)</td><td>82만원 → <strong>34만원 (−48만)</strong></td></tr>
+          <tr><td>PC 자체 마진</td><td>약 2만원</td><td>−46만원 (할인)</td></tr>
+          <tr><td>인터넷 가입 마진 재원</td><td>—</td><td>+약 48만원 (지원금/수수료)</td></tr>
+          <tr><td>건당 순마진</td><td>약 2만원</td><td><strong>+α (인터넷 잔여 마진)</strong></td></tr>
+          <tr><td>장기 수익</td><td>없음</td><td>인터넷 약정 잔여 기간 수수료 스트림</td></tr>
+        </table>
+        <p class="src">위 숫자는 모델 설명용 예시. 실제 매입가·지원금·수수료는 다나와·통신사 협상 기준. <span class="confidence low">신뢰도 낮음 — 확정 전</span></p>
+
+        <p><strong>전략적 함의:</strong> 결합 모델 도입 시 PC는 회계상 음수 마진이라도 결합 건당 양수 수익이 가능.
+        "노마진"이라는 모호한 표현이 "인터넷 마진을 재원으로 PC 가격을 끌어내림"이라는 명확한 메커니즘으로 바뀜.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>마케팅 표시 — 표시광고법 안전 가이드</summary>
+      <div class="body">
+        <p>통신 결합 할인 표기는 표시광고법상 까다로움. 안전 표기 가이드:</p>
+        <ul>
+          <li><strong>"최대 48만원"은 가능</strong>하지만 옆에 적용 조건 (요금제·약정기간·인터넷 등급) 명시 필수</li>
+          <li>평균 할인액 또는 가장 일반적인 할인액 함께 표기 권장</li>
+          <li>"100% 할인", "공짜" 표현 금지 — 약정·요금 부담이 있음을 명시</li>
+          <li>"단독 판매도 가능합니다" 명시 — 강제 결합으로 오인 차단</li>
+        </ul>
+        <p>당사가 통신 결합 상품에서 운영해온 표시 기준과 일관성 유지. <strong>법무 사전 검토 필수.</strong></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>약정·환수 구조</summary>
+      <div class="body">
+        <ul>
+          <li>인터넷 약정 기간 (예: 24·36개월) 미이행 해지 시 PC 할인 차액 환수 조항 필수</li>
+          <li>환수 계산: 잔여 약정 기간에 비례한 위약금 + 할인 차액 일부</li>
+          <li>당사 통신·렌탈 사업의 위약금 운영 체계와 동일 구조 적용 가능</li>
+          <li>결합 가입 약관에 PC 가격 할인의 재원이 인터넷 약정임을 명시 → 고객 동의 확보</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>회계·세무 처리 — 사전 확인 필요</summary>
+      <div class="body">
+        <ul>
+          <li>PC 할인은 회계상 <strong>인터넷 부문 마케팅비/고객 유치비(CAC)</strong>로 분류 → PC 부문 영업이익 보전</li>
+          <li>세무상 결합 할인은 매출 차감 vs 판촉비 처리 선택 가능 — 세무사 자문 필수</li>
+          <li>전사 영업이익 영향 시뮬레이션 사전 진행 (특히 결합 가입 비중 가정에 따른 민감도)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>다나와 협상에 추가할 항목</summary>
+      <div class="body">
+        <p>결합 모델 운영을 위해 다나와 협상의 비협상 항목에 추가:</p>
+        <ol>
+          <li><strong>결합 할인 후 표시가 자율</strong> — 다나와가 가격 하한·MAP 못 걸도록. 단독가만 비교 노출되도록 합의.</li>
+          <li><strong>결합 SKU 명시 가능</strong> — 다나와 상품 페이지에 아정당 결합가 표시 권한.</li>
+          <li><strong>다나와 비교가와의 분리</strong> — 다나와 가격비교 결과에서 아정당 결합가가 단독 최저가로 노출되지 않도록 (다나와 자체 매출 보호 + 우리 가격 신뢰성 보호).</li>
+        </ol>
+      </div>
+    </details>
+
+    <div class="callout note">
+      <span class="tag">전략적 위치</span>
+      이 결합 모델이 노마진 2년의 실질적 작동 메커니즘.
+      PC 카테고리 진입(단독)과 주력 사업 수익 확대(결합)를 동시에 확보하는 구조이며,
+      당사가 통신·렌탈에서 운영해온 결합 판매 모델을 PC 카테고리로 확장하는 것에 해당.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 7. PC × 인터넷 논리 ===================== -->
+<details>
+  <summary><span class="num">07</span>PC × 인터넷 — 왜 같이 봐야 하는가</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">이 섹션의 목적</span>
+      "이사는 새 집 = 인터넷이라 자명한데, PC도 그렇게 될까요?"라는 의심에 대한 명시적 답변.
+      <strong>PC 사용 체감의 절반은 인터넷이 결정</strong>한다는 기술적 사실 + 우리가 이미 이 논리로 콘텐츠를 운영 중이라는 자산.
+    </div>
+
+    <h3>핵심 논리</h3>
+    <p>컴퓨터가 좋다고 게임·AI·스트리밍 체감이 빨라지지 않는 경우가 많다. <strong>PC 성능과 네트워크 성능은 서로 다른 영역</strong>이고, 사용자가 체감하는 "빠른 PC"의 절반은 인터넷이 결정한다. 따라서 PC 카테고리 진입은 본업(인터넷·렌탈)과 분리된 신사업이 아니라, 본업의 의사결정 입구를 확보하는 행위.</p>
+
+    <details open>
+      <summary>왜 PC만 좋아선 안 되는가 (기술적 근거)</summary>
+      <div class="body">
+        <table>
+          <tr><th>사용 장면</th><th>PC가 책임지는 영역</th><th>인터넷이 책임지는 영역</th></tr>
+          <tr>
+            <td>온라인 게임 (FPS/MOBA)</td>
+            <td>프레임(FPS), 그래픽 품질</td>
+            <td><strong>핑(서버 응답) — 1ms 차이로도 승패</strong></td>
+          </tr>
+          <tr>
+            <td>클라우드 게이밍<br>(GeForce Now·Xbox Cloud 등)</td>
+            <td>디스플레이·입력만</td>
+            <td><strong>거의 전부 — 대역폭·지연</strong></td>
+          </tr>
+          <tr>
+            <td>AI PC 활용<br>(Copilot·ChatGPT·이미지 생성 등)</td>
+            <td>로컬 NPU 추론</td>
+            <td><strong>대형 모델·실시간 응답은 클라우드 호출</strong></td>
+          </tr>
+          <tr>
+            <td>4K/HDR 스트리밍·작업물 업로드</td>
+            <td>디코딩·인코딩</td>
+            <td><strong>대역폭·안정성</strong></td>
+          </tr>
+          <tr>
+            <td>가족 동시 사용 (OTT + 다운로드 + 게임)</td>
+            <td>각자 단말 처리</td>
+            <td><strong>대역폭 경합 — 회선 등급 영향</strong></td>
+          </tr>
+        </table>
+
+        <p>핑 일반 기준: <strong>50ms 미만 최상 · 100ms 미만 양호 · 100ms 이상 경쟁 게임 불리</strong>.
+        한국은 평균 회선·핑이 좋은 환경이지만, <strong>WiFi 품질·공유기 노후·시간대 혼잡</strong>으로 실제 가정에서의 체감 핑은 자주 튄다.</p>
+        <p class="src">자료: 게이밍 핑 가이드(exitlag.com 외 다수), 일반 기술 통념. <span class="confidence high">신뢰도 높음 — 기술 일반론</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>예상 카운터 질문 3가지 — 미리 준비된 답</summary>
+      <div class="body">
+        <h3>Q1. "요즘 한국 인터넷 다 좋잖아요?"</h3>
+        <p>평균 회선 품질은 양호. 다만 실제 게이밍·AI 체감을 좌우하는 변수는 <strong>회선 등급보다 WiFi 환경·공유기 세대·동시 사용자 수</strong>.
+        5년 이상 경과한 공유기는 802.11ac/ax 미지원으로 PC 성능을 충분히 활용하지 못함.
+        PC 구매 시점이 가정 네트워크 점검의 자연스러운 트리거가 되는 이유.</p>
+
+        <h3>Q2. "PC만 좋으면 되지 않나요?"</h3>
+        <p>PC 안에서 해결되는 영역(렌더링·연산)과 외부 서버 왕복이 필요한 영역(핑·클라우드·스트리밍)이 다르다.
+        후자는 <strong>아무리 좋은 PC도 못 해결</strong>한다. AI PC 시대로 갈수록 클라우드 호출 비중은 더 커진다.</p>
+
+        <h3>Q3. "이사는 새 집이라 인터넷이 자명한데, PC는 그게 아니지 않나요?"</h3>
+        <p>타당한 지적. 이사는 생애전환 이벤트이고 PC는 그에 해당하지 않음.
+        다만 <strong>PC 자체가 인터넷 신규 가입 트리거는 아니지만, 기존 인터넷 환경의 재점검·업그레이드를 유발하는 명확한 계기</strong>로 작용.
+        신규 PC 구매 직후가 "현재 인터넷이 신규 PC 성능을 충분히 받쳐주는가"라는 의문이 가장 강한 시점.
+        해당 의문을 콘텐츠로 다루면 자연스러운 번들 제안 타이밍 확보 가능.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>아정당의 기존 자산 — 이미 이 논리로 운영 중</summary>
+      <div class="body">
+        <p>아정당 자체 사이트(ajd.co.kr)에 <strong>"게임 인터넷 속도 추천 — FPS·MMORPG 권장 속도와 핑 문제 해결 방법"</strong> 콘텐츠가 이미 운영되어 검색에 노출되고 있음.
+        즉, PC × 인터넷 결합 논리는 가설이 아니라 <strong>아정당이 이미 콘텐츠로 검증·운영해온 영역</strong>.
+        PC 카테고리 진입은 이 콘텐츠 풀의 자연스러운 확장이며, 콘텐츠 자산 활용으로 진입 비용도 절감된다.</p>
+        <p class="src">자료: ajd.co.kr 검색 노출 확인. <span class="confidence high">신뢰도 높음</span></p>
+      </div>
+    </details>
+
+    <div class="callout note">
+      <span class="tag">전략적 함의</span>
+      이 논리는 두 가지를 동시에 수행함 — (1) "PC도 이사처럼 번들로 전환되는가"라는 의심에 대한 답이 되고,
+      (2) PC 사업이 별개의 신사업이 아니라 <strong>주력 사업(인터넷·렌탈)의 의사결정 입구</strong>임을 설명함.
+      <strong>노마진 2년의 정당성도 이 지점에서 확보됨 — PC는 인터넷 의사결정의 입구이며 독립 수익원이 아님.</strong>
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 8. 다나와 협업 1차 제안 ===================== -->
+<details>
+  <summary><span class="num">08</span>다나와 협업 1차 제안 (1페이지 — 실무 미팅용)</summary>
+  <div class="body">
+
+    <div class="callout note">
+      <span class="tag">사용 안내</span>
+      이 섹션이 다나와 실무 테이블에 직접 들고 갈 제안 내용. 의사결정 부담을 0으로 만드는 것이 목적 — "협업하시죠"가 아니라 SKU·R&R·정산이 적힌 종이를 먼저 제시.
+    </div>
+
+    <h3>제안 개요</h3>
+    <p>아정당의 <strong>수요 창출력</strong>(유튜브·브랜드 인지)과 다나와의 <strong>상품·풀필먼트</strong>를 결합해, 가성비 완제품 PC 카테고리에서 <strong>작게·빠르게</strong> 시작하는 1차 파일럿.</p>
+
+    <h3>파일럿 범위</h3>
+    <ul>
+      <li><strong>대상:</strong> 완제품 1~2종 (가성비 인기 구성, 키워드 수요 기준 선정)</li>
+      <li><strong>방식:</strong> 위탁/드롭십 (아정당 재고 부담 없음)</li>
+      <li><strong>기간:</strong> [예: 8주] 파일럿 후 성과 리뷰</li>
+    </ul>
+
+    <h3>업무 분담 (R&R)</h3>
+    <table>
+      <tr><th>단계</th><th>담당</th></tr>
+      <tr><td>상품 소싱·매입</td><td>다나와</td></tr>
+      <tr><td>상세페이지·콘텐츠·마케팅</td><td>아정당</td></tr>
+      <tr><td>주문·고객 1차 응대</td><td>아정당</td></tr>
+      <tr><td>배송·물류</td><td>다나와</td></tr>
+      <tr><td>AS·사후처리</td><td>[협의 — AS 책임 주체·플로우 확정]</td></tr>
+      <tr><td>정산</td><td>다나와 / 주기 [협의]</td></tr>
+    </table>
+
+    <h3>합의 안건 (미팅에서 결정)</h3>
+    <ol>
+      <li>시작 SKU 1~2종 선정</li>
+      <li>매입 단가 및 판매가 설정 권한</li>
+      <li>AS·반품·교환 책임 주체와 플로우</li>
+      <li>정산 주기·조건</li>
+      <li>파일럿 성공 기준(판매량/기간)과 다음 단계 전환 조건</li>
+    </ol>
+
+    <h3>양사 기대 효과</h3>
+    <ul>
+      <li><strong>다나와:</strong> 신규 판매 채널·볼륨 확대, 젊은층 신규 수요 유입</li>
+      <li><strong>아정당:</strong> 컴퓨터 카테고리 신설, 가성비 포지션으로 시장 진입</li>
+    </ul>
+
+  </div>
+</details>
+
+<!-- ===================== 9. 1억 영업이익 검토 ===================== -->
+<details>
+  <summary><span class="num">09</span>"2년 영업이익 1억" 주장 — 시나리오 검토</summary>
+  <div class="body">
+
+    <div class="callout warn">
+      <span class="tag">주의</span>
+      이 항목은 대표 발언("2년 내 PC로 1억 영업이익")의 현실성을 점검하기 위한 내부 분석. <strong>결론적으로 "PC 단품으로 1억"은 노마진 결정과 충돌</strong>하며, 1억은 트래픽 기여 효과로 해석해야 의미가 있음.
+    </div>
+
+    <details open>
+      <summary>시나리오 A — 결합 모델 적용 시 (수정)</summary>
+      <div class="body">
+        <p>섹션 06 결합 모델 도입을 전제로 재검토:</p>
+        <ul>
+          <li>PC 단독: 회계상 마진 0~음수 (트래픽·카테고리 진입 목적)</li>
+          <li><strong>PC + 인터넷 결합: 건당 인터넷 가입 마진이 본 수익원</strong></li>
+          <li>결합 가입 한 건의 잔여 마진을 가령 평균 X만원으로 잡으면:
+            <br>1억 ÷ X = 2년간 필요한 결합 가입 수
+          </li>
+          <li>예: 결합 1건당 잔여 마진 20만원 가정 → 2년간 약 500건 결합 가입 필요 (월 약 21건)</li>
+          <li><strong>평가:</strong> 인터넷 결합 가입은 당사의 주력 사업 영역으로 운영 난이도 낮음. <strong>2년 1억 달성은 본 시나리오에서 합리적 범위</strong>. 대표 발언이 결합 모델 기반이라면 검증 가능한 수치.</li>
+        </ul>
+        <p class="src">건당 마진은 통신·인터넷 수수료 구조에 따라 다름. 실제 수치는 당사 내부 데이터로 시뮬레이션 필요. <span class="confidence low">신뢰도 낮음 — 예시</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 A-기존 — 결합 없이 PC 단품으로만 1억 (참고)</summary>
+      <div class="body">
+        <p>업계 1위 컴퓨존 영업이익률 <strong>1.9%</strong> 기준:</p>
+        <ul>
+          <li>1억 영업이익 ÷ 1.9% ≈ <strong>매출 약 53억</strong> 필요</li>
+          <li>대당 평균 80만원이면 <strong>약 6,600대 / 2년</strong>, 월 약 280대</li>
+          <li><strong>평가:</strong> 이론상 가능하나 신규 진입자가 2년 내 도달할 수 있는 규모가 아님. 노마진 결정과도 모순됨 → 결합 모델로 대체.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 B — 트래픽 기여(번들 전환 등) 포함 1억</summary>
+      <div class="body">
+        <p>유튜브 이사 콘텐츠 사례: <strong>1000명 인입 → 150명 인터넷/렌탈 가입 (15% 전환, 실데이터)</strong></p>
+        <ul>
+          <li>PC 카테고리도 유사 전환 가정 시: 인입 트래픽 × 전환율 × 건당 수익으로 산출</li>
+          <li>건당 수익이 가입당 약 60~70만원이라 가정하면 <strong>연간 100~200대 PC 판매 트래픽으로도 1억 달성 가능</strong></li>
+          <li><strong>주의:</strong> 이사는 생애전환 이벤트(=번들 적합), PC는 그 적합도가 떨어짐. 자취·첫컴 등 코호트에 집중해야 15% 근접. 일반 PC면 한 자릿수로 떨어질 가능성.</li>
+          <li><strong>보강 (섹션 07 연결):</strong> "PC 사용 체감의 절반 = 인터넷"이라는 논리를 콘텐츠로 결합하면, 일반 PC 구매자에게도 인터넷 점검·교체 의향을 유발할 수 있어 코호트 의존도가 완화됨. 0단계 콘텐츠에 해당 메시지 결합 필수.</li>
+        </ul>
+        <p class="src">15%는 아정당 보유 실데이터 (출처: 내부). PC 카테고리 전환율은 0단계에서 실측 필요. <span class="confidence mid">신뢰도 보통</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 C — 2년 후 자체 매입·판매 단계 1억</summary>
+      <div class="body">
+        <p>인큐 기간 후 운영 역량 내재화가 이뤄지면, 자체 매입 마진 + AS 직접 처리로 수익화. 단:</p>
+        <ul>
+          <li>커넥트웨이브가 모회사인 현 구조에서 "다나와와 별도 경쟁 라인" 운영이 가능한지는 그룹 차원 의사결정 필요</li>
+          <li>지분 계약상 경업금지·독점 조항 확인 선행</li>
+          <li>업계 평균 1.9% 마진 기준이라면 동일하게 매출 53억 규모 필요</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="callout key">
+      <span class="tag">분석 결론</span>
+      "2년 1억 영업이익"은 <strong>PC 단품 회계상</strong>으로는 노마진 결정과 모순이지만,
+      <strong>결합상품 모델(섹션 06) 기반</strong>으로 해석하면 운영 가능 범위.
+      보고 시에는 (a) PC 단품 영업이익, (b) 결합건 인터넷 마진, (c) 트래픽 기여 효과를 분리해서 제시하고, 1억의 정의를 어디로 둘지 위에서 정리하는 게 깔끔함.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 10. 리스크 & 다음 단계 ===================== -->
+<details>
+  <summary><span class="num">10</span>리스크 & 다음 단계</summary>
+  <div class="body">
+
+    <h3>실측·검증 필요 항목</h3>
+    <table>
+      <tr><th>항목</th><th>방법</th><th>담당</th></tr>
+      <tr><td>가성비 키워드 TOP3 월간검색수</td><td>네이버 키워드도구 실측</td><td>실무</td></tr>
+      <tr><td>PC 인입 → 번들 전환율 (코호트별)</td><td>0단계 라이브 후 실측</td><td>실무</td></tr>
+      <tr><td>결합 1건당 인터넷 잔여 마진 (실제)</td><td>통신·렌탈 부서 데이터</td><td>실무 + 사업부</td></tr>
+      <tr><td>다나와의 AS 백엔드 흡수 가능 범위</td><td>실무 미팅에서 확인</td><td>실무</td></tr>
+      <tr><td>커넥트웨이브 지분 계약 — 경업금지·독점 조항</td><td>법무 확인</td><td>법무팀</td></tr>
+      <tr><td>PC 현금성/경품 표시광고법·공정위 경품 한도</td><td>법무 확인</td><td>법무팀</td></tr>
+      <tr><td><strong>결합 할인 표기·약정 환수·회계 처리</strong></td><td>법무 + 세무사 자문</td><td>법무팀 + 재무</td></tr>
+    </table>
+
+    <h3>주요 리스크</h3>
+    <ul>
+      <li><strong>AS 흡수 불가 시:</strong> 노마진 + CS 부담 = 적자. 0단계 진입 자체 재검토.</li>
+      <li><strong>키워드 카니발라이제이션:</strong> 다나와와 동일 키워드 SEO 경쟁 → 모회사 관계로 그룹 조정 필요.</li>
+      <li><strong>결합 가격 자율권 차단 시:</strong> 다나와가 가격 하한·MAP 걸면 결합 모델 자체 작동 불가. 협상에서 최우선 사수.</li>
+      <li><strong>표시광고법 위반:</strong> "최대 48만원 할인" 표기 부주의 시 행정처분. 법무 사전 검토 필수.</li>
+      <li><strong>전환율 미달:</strong> 단독 인입 → 결합 전환율이 가정 대비 낮으면 노마진 기간 정당화 어려움.</li>
+      <li><strong>모회사 정책 변경:</strong> MBK의 자회사 간 시너지 방향이 바뀌면 협상 환경 급변 가능.</li>
+    </ul>
+
+    <h3>즉시 액션 (실무자)</h3>
+    <ol>
+      <li>이번 주: 다나와 실무 담당자에게 본 기획안 섹션 08 (1페이지 제안) 송부 → 후속 실무 미팅</li>
+      <li>키워드 실측 (검색광고 키워드도구) → SKU 후보 1~2종 확정</li>
+      <li><strong>결합 건당 인터넷 마진 실측치 확보</strong> (통신·렌탈 부서) → 시나리오 A 수치 확정</li>
+      <li>법무 확인 의뢰 (경업금지 조항·표시광고법·결합 할인 표기·약정 환수)</li>
+      <li>세무사 자문 (PC 할인의 인터넷 마케팅비 분류 가능성)</li>
+      <li>0단계 KPI 정의: 인입 수·단독 구매 전환·결합 전환·결합건당 평균 마진</li>
+    </ol>
+
+  </div>
+</details>
+
+<footer class="doc">
+  키워드 실측·법무 확인 후 확정. 본 문서의 수치 중 [신뢰도 보통/낮음] 표기 항목은 검증 전 외부 인용 금지.
+</footer>
+
+</div>
+</body>
+</html>

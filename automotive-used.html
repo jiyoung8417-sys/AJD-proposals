@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아정당 — 중고차 카테고리 진입 기획안</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
+    --line: #e5e3dc;
+    --accent: #4a5d3a;
+    --accent-soft: #eef2e8;
+    --warn: #8a6d3b;
+    --warn-soft: #fbf6e9;
+    --ok-soft: #eef3ed;
+    --code-bg: #f0ede5;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "tnum" 1;
+    line-height: 1.7;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 32px 96px; }
+  header.doc { border-bottom: 2px solid var(--ink); padding-bottom: 24px; margin-bottom: 40px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; font-weight: 500; }
+  h1.title { font-size: 30px; line-height: 1.3; margin: 0 0 12px; font-weight: 700; letter-spacing: -0.02em; }
+
+  details { border-bottom: 1px solid var(--line); padding: 0; }
+  details[open] { padding-bottom: 24px; }
+  details > summary {
+    list-style: none; cursor: pointer; padding: 20px 0;
+    display: flex; align-items: center; gap: 14px;
+    font-weight: 600; font-size: 17px; color: var(--ink);
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before {
+    content: "+"; display: inline-block;
+    width: 20px; height: 20px; line-height: 18px;
+    text-align: center; border: 1px solid var(--ink); border-radius: 50%;
+    font-size: 14px; font-weight: 400; flex-shrink: 0; transition: transform .2s ease;
+  }
+  details[open] > summary::before { content: "−"; }
+  details .num { color: var(--ink-faint); font-variant-numeric: tabular-nums; font-weight: 500; margin-right: 6px; font-size: 14px; }
+  details .body { padding-left: 34px; color: var(--ink-soft); }
+  details .body h3 { color: var(--ink); font-size: 15px; margin: 24px 0 10px; font-weight: 600; }
+  details .body h3:first-child { margin-top: 4px; }
+  details .body p { margin: 0 0 12px; }
+  details .body ul, details .body ol { margin: 0 0 14px; padding-left: 20px; }
+  details .body li { margin-bottom: 6px; }
+  details .body strong { color: var(--ink); font-weight: 600; }
+
+  details details { border-bottom: 1px dashed var(--line); margin-left: -10px; }
+  details details:last-child { border-bottom: none; }
+  details details > summary { padding: 14px 0; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+  details details > summary::before { width: 16px; height: 16px; line-height: 14px; font-size: 12px; }
+  details details .body { padding-left: 30px; font-size: 14px; }
+
+  .summary-box {
+    background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    padding: 24px 28px; margin-bottom: 32px; border-radius: 2px;
+  }
+  .summary-box h2 { margin: 0 0 14px; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .summary-box .lead { font-size: 17px; line-height: 1.55; color: var(--ink); margin: 0 0 16px; font-weight: 500; }
+  .summary-box ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--ink-soft); }
+  .summary-box ul li { margin-bottom: 4px; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0 20px; }
+  .stat { border: 1px solid var(--line); padding: 14px 16px; background: #fff; }
+  .stat .label { font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .stat .value { font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+  .stat .sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+
+  .callout { border-left: 3px solid; padding: 12px 16px; margin: 14px 0; font-size: 14px; border-radius: 0 2px 2px 0; }
+  .callout .tag { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; display: block; }
+  .callout.warn { background: var(--warn-soft); border-color: var(--warn); }
+  .callout.warn .tag { color: var(--warn); }
+  .callout.key { background: var(--accent-soft); border-color: var(--accent); }
+  .callout.key .tag { color: var(--accent); }
+  .callout.note { background: var(--ok-soft); border-color: #4a6c4d; }
+  .callout.note .tag { color: #4a6c4d; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 14px 0; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--ink); background: var(--code-bg); font-size: 12.5px; letter-spacing: 0.02em; }
+  td { color: var(--ink-soft); }
+  td strong { color: var(--ink); }
+
+  .src { font-size: 11.5px; color: var(--ink-faint); margin-top: 6px; font-style: italic; }
+  .confidence { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; font-weight: 500; }
+  .confidence.high { background: var(--ok-soft); color: #3d5a40; }
+  .confidence.mid { background: var(--warn-soft); color: var(--warn); }
+  .confidence.low { background: var(--accent-soft); color: var(--accent); }
+
+  .toc { background: #fff; border: 1px solid var(--line); padding: 16px 20px; margin-bottom: 24px; font-size: 13px; }
+  .toc .toc-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; margin-bottom: 8px; }
+  .toc ol { margin: 0; padding-left: 22px; color: var(--ink-soft); }
+  .toc ol li { margin-bottom: 3px; }
+
+  .controls { display: flex; gap: 10px; margin-bottom: 16px; font-size: 12px; }
+  .controls button { border: 1px solid var(--line); background: #fff; padding: 6px 12px; cursor: pointer; color: var(--ink-soft); font-family: inherit; font-size: 12px; border-radius: 2px; transition: all .15s ease; }
+  .controls button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  footer.doc { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-faint); text-align: center; }
+
+  .scenario-box { border: 1px solid var(--line); padding: 16px 20px; margin: 14px 0; background: #fff; border-radius: 2px; }
+  .scenario-box h4 { margin: 0 0 8px; font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+  .scenario-box .scenario-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+
+  @media print {
+    details { page-break-inside: avoid; }
+    details > .body { display: block !important; }
+    summary::before { display: none; }
+    .controls { display: none; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 32px 18px 64px; }
+    h1.title { font-size: 24px; }
+    .stats { grid-template-columns: 1fr; }
+    details .body { padding-left: 0; }
+    details details .body { padding-left: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <div class="eyebrow">아정당 — 중고차 카테고리 진입 기획안</div>
+  <h1 class="title">중고차 시장 진입 전략 및 옵션 검토 (사전 검토안)</h1>
+</header>
+
+<div class="summary-box">
+  <h2>한눈에 보기</h2>
+  <p class="lead">
+    중고차는 신차의 2배 거래 규모이나, <strong>엔카가 구입 시장 53%·헤이딜러가 처분 시장 40%로 양분된 록인 시장</strong>.
+    다나와 자동차도 중고차 영역에서는 5위권 밖이며, 신차·렌트/리스와는 시장 구조·비즈니스 모델·진입 전략이 근본적으로 다름.
+    당사 직접 진입은 비현실적이나, <strong>자동차보험 cross-sell 채널화</strong>와 <strong>처분 시장(C2C 경매) 보조 진입</strong> 정도가 합리적 옵션.
+  </p>
+  <ul>
+    <li>구입 시장: 엔카 53%(2년 연속 하락) · K카 21% · KB차차차 14% · 헤이딜러 3%</li>
+    <li>처분 시장: <strong>헤이딜러 40%</strong> · 엔카 27% · KB차차차 12% (구입과 처분이 다른 시장)</li>
+    <li>K카 직영 모델: 매출 2조4,388억 · 영업이익 759억(3.1%) — 수익성 모델 검증된 영역</li>
+    <li>중고차 시장의 고질적 불신 문제는 <strong>신규 진입자에게 기회</strong>이기도 함</li>
+    <li>본 문서는 신차·렌트/리스 기획안과 분리된 별도 검토안</li>
+  </ul>
+</div>
+
+<div class="toc">
+  <div class="toc-title">목차</div>
+  <ol>
+    <li>중고차 시장 현황 — 신차의 2배 거래량, 신뢰성 문제</li>
+    <li>경쟁 구도 — 엔카, K카, KB차차차, 헤이딜러</li>
+    <li>비즈니스 모델 분석 — 매물 등재·직영·C2C 경매·광고리스팅</li>
+    <li>중고차 기본 상식 — 보고 전 알아둘 내용</li>
+    <li>중고차 시장의 구조적 과제 — 신뢰성·매물·인증</li>
+    <li>아정당 진입 옵션 — 4가지 시나리오 비교</li>
+    <li>결합상품 모델 — 중고차 + 보험</li>
+    <li>다나와 협업 가능성 — 시너지 제한적</li>
+    <li>예상 수익 시나리오 검토</li>
+    <li>리스크 & 다음 단계</li>
+  </ol>
+</div>
+
+<div class="controls">
+  <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">전체 펼치기</button>
+  <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">전체 접기</button>
+  <button onclick="window.print()">인쇄 / PDF</button>
+</div>
+
+<!-- ===================== 1. 시장 현황 ===================== -->
+<details open>
+  <summary><span class="num">01</span>중고차 시장 현황 — 신차의 2배 거래량, 신뢰성 문제</summary>
+  <div class="body">
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">중고차 거래량</div>
+        <div class="value">신차 2배</div>
+        <div class="sub">거래 대수 기준</div>
+      </div>
+      <div class="stat">
+        <div class="label">엔카 구입 점유율</div>
+        <div class="value">53%</div>
+        <div class="sub">2022 60% → 2024 53% 하락</div>
+      </div>
+      <div class="stat">
+        <div class="label">헤이딜러 처분 점유율</div>
+        <div class="value">40%</div>
+        <div class="sub">3년 연속 1위</div>
+      </div>
+    </div>
+    <p class="src">자료: 컨슈머인사이트 2024 연례 자동차 기획조사. <span class="confidence high">신뢰도 높음</span></p>
+
+    <details>
+      <summary>핵심 트렌드 5가지</summary>
+      <div class="body">
+        <h3>1) 엔카 독점 약화 — 2년 연속 점유율 하락</h3>
+        <p>엔카 구입 점유율: 2022년 60% → 2023년 56% → 2024년 53%. 처분 점유율도 1위에서 헤이딜러에게 추월당함(2024년 처분 27%). 신규 진입자에게 가능성이 열리는 국면.</p>
+
+        <h3>2) 구입과 처분이 다른 시장</h3>
+        <p>구입 시장은 엔카 53% 독주이나, 처분 시장은 헤이딜러가 40%로 다른 1위. 헤이딜러는 구입 서비스를 운영하지 않고 <strong>'내차팔기' 경매 모델에 집중</strong>해 처분 시장을 장악. <strong>구입과 처분이 사실상 다른 비즈니스</strong>.</p>
+
+        <h3>3) 비대면·온라인 경매 대중화</h3>
+        <p>헤이딜러는 매월 5만대 경매 출품, 매월 40만 건 이상의 딜러 입찰. "헤이딜러 Zero"(딜러 대면 없이 거래) 등 비대면 모델 확장. 비대면 거래가 신뢰 문제를 일부 해소하며 성장.</p>
+
+        <h3>4) 현대차·기아 인증중고차 시장 진입 (2023.10~11)</h3>
+        <p>완성차 OEM이 직접 인증중고차 사업 시작. 시장 신뢰도 문제가 큰 영역에서 OEM 직진입은 게임 체인저 가능성. <strong>2025~26년 중고차 시장 재편 전망</strong>.</p>
+
+        <h3>5) 만족도는 K카 1위 (직영 모델)</h3>
+        <p>K카는 매입·관리·판매 전 과정을 직접 운영하는 직영 모델로 만족도 1위. 매출 2조4,388억, 영업이익 759억(3.1%). 신뢰성 기반 수익화가 검증된 영역.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>거래 형태별 시장 구분</summary>
+      <div class="body">
+        <table>
+          <tr><th>거래 형태</th><th>점유 플랫폼</th><th>특성</th></tr>
+          <tr><td><strong>구입 (소비자 매수)</strong></td><td>엔카 53% / K카 21% / KB차차차 14%</td><td>매물 규모·신뢰성이 핵심</td></tr>
+          <tr><td><strong>처분 (소비자 매도)</strong></td><td>헤이딜러 40% / 엔카 27% / KB차차차 12%</td><td>온라인 경매 모델 우세</td></tr>
+          <tr><td><strong>직영 매매</strong></td><td>K카</td><td>매입→정비→판매 일괄, 신뢰도 최상</td></tr>
+          <tr><td><strong>인증중고차</strong></td><td>현대·기아 (2023~), 일부 플랫폼</td><td>OEM 직접 진입 영역, 신뢰성 강화</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 2. 경쟁 구도 ===================== -->
+<details>
+  <summary><span class="num">02</span>경쟁 구도 — 엔카, K카, KB차차차, 헤이딜러</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 인사이트</span>
+      중고차는 <strong>각 사업자가 다른 모델로 다른 세그먼트를 점유</strong>한 시장.
+      엔카는 매물 등재 플랫폼, K카는 직영, 헤이딜러는 처분 경매. 정면승부는 비현실적이나, 다른 모델로 비어있는 틈새 가능성 존재.
+    </div>
+
+    <details open>
+      <summary>1티어 — 엔카 (구입 시장 절대 1위)</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>내용</th></tr>
+          <tr><td>매출</td><td>약 1,207억원 (최근 연결 재무제표 기준)</td></tr>
+          <tr><td>모델</td><td>매물 등재형 (딜러가 매물 등재, 광고비 지불, 사용자는 매물 검색·연락)</td></tr>
+          <tr><td>강점</td><td>매물 규모·다양성·인지도(80%+) 압도적, 록인 효과 강함</td></tr>
+          <tr><td>약점</td><td><strong>매물·시세·딜러 신뢰도 부족</strong>이 고질적 문제. 점유율 2년 연속 하락 중</td></tr>
+        </table>
+        <p class="src">자료: THE VC 기업정보, 컨슈머인사이트. <span class="confidence high">신뢰도 높음</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>2티어 — K카 (직영 모델 1위, 만족도 1위)</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>내용</th></tr>
+          <tr><td>매출</td><td>2025년 2조4,388억 (전년 +6%)</td></tr>
+          <tr><td>영업이익</td><td>759억 (전년 +11.5%), 영업이익률 3.1%</td></tr>
+          <tr><td>모델</td><td><strong>직영</strong> — 매입·정비·판매 전 과정 자체 운영</td></tr>
+          <tr><td>강점</td><td>신뢰성·만족도 1위, "시세 신뢰", "딜러 신뢰" 만족 사유 압도적</td></tr>
+          <tr><td>약점</td><td>매물 규모는 엔카 대비 작음, 자본·시간 소요 큼</td></tr>
+        </table>
+        <p class="src">자료: 케이카 공시 (2025 매출·영업이익). <span class="confidence high">신뢰도 높음</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>3티어 — KB차차차 (은행계열, 종합 플랫폼)</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>내용</th></tr>
+          <tr><td>모델</td><td>매물 등재 + 금융 연계 (KB캐피탈)</td></tr>
+          <tr><td>강점</td><td>은행계열 신뢰, 인지도 70%, 가격 합리성</td></tr>
+          <tr><td>약점</td><td>인지율 대비 점유율 낮음, 시세 만족도 낮음</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>4티어 — 헤이딜러 (처분 시장 1위, 경매 모델)</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>내용</th></tr>
+          <tr><td>모델</td><td><strong>'내차팔기' 온라인 경매</strong> — 사용자가 차량 등록 → 딜러들이 입찰 → 최고가 낙찰</td></tr>
+          <tr><td>스케일</td><td>매월 5만대 경매 출품, 매월 40만+ 딜러 입찰, 전국 매입딜러 90% 참여</td></tr>
+          <tr><td>강점</td><td>구입 서비스 없이 처분 시장만으로 40% 점유율. "헤이딜러 Zero"로 비대면 거래 확장</td></tr>
+          <tr><td>약점</td><td>구입 시장 진입 안 함 — 한쪽만 운영</td></tr>
+        </table>
+        <p class="src">자료: 헤이딜러 공식 페이지·앱 설명. <span class="confidence high">신뢰도 높음</span></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>다나와의 중고차 사업 — 약함</summary>
+      <div class="body">
+        <p>다나와 자동차도 중고차 매물 검색 서비스를 운영하나 <strong>구입·처분 시장 모두 5위권 밖</strong>. 다나와의 중고차 사업은 신차·렌트/리스 대비 위상이 낮음.</p>
+        <p><strong>당사 협업 시사점:</strong> 다나와와의 중고차 협업은 신차·렌트/리스 협업만큼의 시너지를 기대하기 어려움. 별도 접근 필요.</p>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 3. 비즈니스 모델 ===================== -->
+<details>
+  <summary><span class="num">03</span>비즈니스 모델 분석 — 매물 등재·직영·C2C 경매·광고리스팅</summary>
+  <div class="body">
+
+    <p>중고차 영역은 신차·렌트/리스와 달리 <strong>네 가지 모델</strong>이 공존하며, 각 모델별로 진입 비용·운영 부담·수익 구조가 크게 다름.</p>
+
+    <details>
+      <summary>모델 A. 매물 등재형 (엔카, KB차차차)</summary>
+      <div class="body">
+        <p><strong>구조:</strong> 딜러가 보유 매물을 플랫폼에 등재 → 사용자가 매물 검색·연락 → 거래는 딜러-소비자 간 직접</p>
+        <ul>
+          <li><strong>수익:</strong> 딜러로부터 매물 등재료·광고비·프리미엄 노출 수수료</li>
+          <li><strong>장점:</strong> 매물 보유 부담 없음, 규모 확장 용이</li>
+          <li><strong>단점:</strong> 매물·딜러 신뢰 관리 어려움, 허위매물 문제. 엔카의 록인이 매우 강함</li>
+        </ul>
+        <p><strong>당사 적용성:</strong> 매물 확보 자체가 자산이며, 진입 시 엔카와 정면승부 — <strong>비현실적</strong>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>모델 B. 직영 매매 (K카)</summary>
+      <div class="body">
+        <p><strong>구조:</strong> 플랫폼이 직접 차량 매입 → 정비·인증 → 직접 판매. 사용자에겐 플랫폼이 곧 판매자</p>
+        <ul>
+          <li><strong>수익:</strong> 차량 매매 마진 (3% 수준, K카 기준)</li>
+          <li><strong>장점:</strong> 신뢰성·만족도 최상, 안정적 수익</li>
+          <li><strong>단점:</strong> 차량 매입 자금·재고·정비·물류·AS 등 운영 부담 매우 큼. 자본·시간·인프라 모두 필요</li>
+        </ul>
+        <p><strong>당사 적용성:</strong> 초기 진입에는 부적합. 장기 옵션으로만.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>모델 C. C2C 경매 (헤이딜러)</summary>
+      <div class="body">
+        <p><strong>구조:</strong> 사용자가 매도 의향 차량 등록 → 등록 딜러들이 입찰 경매 → 최고가 낙찰 → 딜러가 매입</p>
+        <ul>
+          <li><strong>수익:</strong> 딜러 입찰 수수료·낙찰 수수료·서비스 수수료</li>
+          <li><strong>장점:</strong> 매물 보유 부담 없음, 사용자 만족도 높음(시세 투명), 처분 시장 한정으로 운영 단순</li>
+          <li><strong>단점:</strong> 등록 딜러 네트워크 확보가 필수 (헤이딜러 90% 딜러 참여로 진입장벽 형성)</li>
+        </ul>
+        <p><strong>당사 적용성:</strong> 당사 1,600 자동차 딜러 자산이 유효하면 <strong>진입 검토 가치 있음</strong>. 단 딜러 활성도 사전 검증 필수.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>모델 D. 광고 리스팅 (MPARK 등 일부 플랫폼)</summary>
+      <div class="body">
+        <p><strong>구조:</strong> 외부 딜러·매매단지가 광고비 지불 → 사용자가 광고 클릭 → 해당 외부 페이지로 이동</p>
+        <ul>
+          <li><strong>수익:</strong> 클릭당(CPC) 또는 정액 등재료</li>
+          <li><strong>장점:</strong> 운영 부담 가장 작음, 매물·딜러 관리 책임 외부 위임</li>
+          <li><strong>단점:</strong> 단가 낮음, 사용자 경험 통제 어려움</li>
+        </ul>
+        <p><strong>당사 적용성:</strong> 보조 수익원으로 운영 가능. 단독 수익원으로는 약함.</p>
+      </div>
+    </details>
+
+    <div class="callout key">
+      <span class="tag">전략적 결론</span>
+      당사 1차 진입 검토는 <strong>모델 C(C2C 경매, 처분 시장)</strong>가 가장 합리적.
+      당사 1,600 딜러 자산이 진입 자산이 되며, 매물 보유 부담 없고, 헤이딜러 외에 강자가 없는 영역.
+      단 헤이딜러 90% 딜러 록인이 강하므로 차별 요소 필요.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 4. 기본 상식 ===================== -->
+<details>
+  <summary><span class="num">04</span>중고차 기본 상식 — 보고 전 알아둘 내용</summary>
+  <div class="body">
+
+    <details>
+      <summary>중고차 거래 흐름 — 누가 무엇을 하는가</summary>
+      <div class="body">
+        <table>
+          <tr><th>주체</th><th>역할</th></tr>
+          <tr><td><strong>중고차 딜러</strong></td><td>매매단지 입주 개인사업자 또는 직영업체 소속. 매입·정비·판매 직접 수행. 매매업 면허 필요</td></tr>
+          <tr><td><strong>매매단지</strong></td><td>중고차 딜러가 모여 있는 단지. 서울 장안평·인천 등</td></tr>
+          <tr><td><strong>매물 등재 플랫폼</strong></td><td>딜러의 매물을 온라인에 노출 (엔카, KB차차차)</td></tr>
+          <tr><td><strong>직영 매매업체</strong></td><td>자체 매입·판매 (K카)</td></tr>
+          <tr><td><strong>경매 플랫폼</strong></td><td>매도 의향 사용자와 매입 딜러 연결 (헤이딜러)</td></tr>
+          <tr><td><strong>인증중고차</strong></td><td>OEM 또는 인증 기관이 진단·인증한 차량 (현대·기아 직접 진입)</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>구입과 처분의 차이</summary>
+      <div class="body">
+        <table>
+          <tr><th>구분</th><th>구입(매수)</th><th>처분(매도)</th></tr>
+          <tr><td>주된 모델</td><td>매물 등재 플랫폼 + 딜러</td><td>경매 (헤이딜러) + 매입 딜러</td></tr>
+          <tr><td>핵심 자산</td><td>매물 규모·다양성</td><td>매입 딜러 네트워크</td></tr>
+          <tr><td>사용자 페인포인트</td><td>허위매물·시세 불신·딜러 신뢰</td><td>시세 불투명·낙찰 후 가격 흥정·정보 비대칭</td></tr>
+          <tr><td>1위</td><td>엔카 53%</td><td>헤이딜러 40%</td></tr>
+        </table>
+        <p>구입과 처분은 사용자 의도·플로우·핵심 자산이 모두 달라 사실상 다른 시장. 진입 전략을 영역별로 분리해야 함.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>알아두면 좋은 용어</summary>
+      <div class="body">
+        <table>
+          <tr><th>용어</th><th>의미</th></tr>
+          <tr><td><strong>매매업 면허</strong></td><td>중고차 매매를 위해 필요한 사업자 면허. 매매단지 입주 시 발급</td></tr>
+          <tr><td><strong>매입가 vs 판매가</strong></td><td>딜러가 차량을 들이는 가격(매입가)과 소비자에게 파는 가격(판매가). 차액이 딜러 마진</td></tr>
+          <tr><td><strong>허위매물</strong></td><td>실제 거래 불가능한 매물을 미끼로 등록. 중고차 시장의 고질적 문제</td></tr>
+          <tr><td><strong>인증중고차</strong></td><td>OEM(현대·기아 등) 또는 인증기관이 진단·보증한 중고차</td></tr>
+          <tr><td><strong>침수차·사고차·주행거리 조작</strong></td><td>대표적 신뢰성 이슈. 진단·이력 조회로 확인 가능</td></tr>
+          <tr><td><strong>낙찰 후 흥정</strong></td><td>경매에서 낙찰 후 딜러가 추가 감가 요구. 헤이딜러도 이 문제로 불만족 사례 발생</td></tr>
+          <tr><td><strong>내차팔기</strong></td><td>소비자가 보유 차량을 매도하는 경매 서비스 (헤이딜러 핵심)</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 5. 시장 구조적 과제 ===================== -->
+<details>
+  <summary><span class="num">05</span>중고차 시장의 구조적 과제 — 신뢰성·매물·인증</summary>
+  <div class="body">
+
+    <p>중고차 시장 진입을 검토할 때 반드시 인식해야 할 구조적 과제 3가지. 신차·렌트/리스에는 없는 진입 장벽이며, 동시에 신규 진입자의 차별화 기회이기도 함.</p>
+
+    <details>
+      <summary>1) 신뢰성 — 시장의 가장 큰 페인포인트</summary>
+      <div class="body">
+        <p>중고차 거래에서 사용자의 가장 큰 스트레스는 "신뢰" 관련 문제. 컨슈머인사이트 조사 기준 불만족 사유 상위:</p>
+        <ul>
+          <li>"제시된 시세를 믿을 수 없어서"</li>
+          <li>"허위매물이 많아서"</li>
+          <li>"입찰된 시세를 믿을 수 없어서"</li>
+          <li>"딜러를 신뢰할 수 없어서"</li>
+        </ul>
+        <p>이로 인해 만족률은 신차 대비 매우 낮음. <strong>K카의 만족도 1위·수익성 검증은 직영 모델이 신뢰 문제를 해결했기 때문</strong>. 신뢰는 모든 진입 옵션에서 최우선 설계 변수.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>2) 매물 확보 — 구입 시장의 핵심 자산</summary>
+      <div class="body">
+        <p>구입 시장에서 매물 규모·다양성이 곧 사용자 인입력. 엔카가 80% 인지도와 53% 점유율을 유지하는 이유. 신규 진입자가 단기간에 매물 풀을 확보하기 매우 어려움.</p>
+        <p><strong>당사 진입 시사점:</strong> 매물 확보가 어려운 구입 시장보다, 매물 확보 부담이 없는 <strong>처분 시장(C2C 경매)·보험 cross-sell 채널</strong>이 현실적.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>3) 인증·OEM 진입 — 시장 재편 변수</summary>
+      <div class="body">
+        <p>현대차·기아가 2023년 10~11월 인증중고차 사업 시작. 신뢰성 문제가 큰 시장에 OEM이 직접 들어오면서 기존 사업자들에게 위협. 2025~26년 시장 재편 진행 중.</p>
+        <p><strong>당사 진입 시사점:</strong> OEM 인증중고차와 정면승부는 비현실적. 다만 OEM 진입으로 "신뢰 강화" 자체가 시장 트렌드가 되므로, 당사도 보험·진단·보증 등 <strong>신뢰 강화 요소</strong>를 차별 요소로 가져갈 수 있음.</p>
+      </div>
+    </details>
+
+    <div class="callout note">
+      <span class="tag">전략적 함의</span>
+      세 가지 과제는 동시에 신규 진입자의 차별 기회.
+      <strong>신뢰성 보장 + 매물 부담 없는 모델 + OEM 진입 트렌드 활용</strong>의 조합이 진입 옵션 설계의 핵심.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 6. 진입 옵션 ===================== -->
+<details>
+  <summary><span class="num">06</span>아정당 진입 옵션 — 4가지 시나리오 비교</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 권장</span>
+      당사 직접 진입은 옵션 1(구입 시장)·옵션 2(직영)는 비현실적.
+      <strong>옵션 3(처분 시장 C2C 경매)과 옵션 4(보험 cross-sell 채널화)</strong>가 합리적 진입 옵션.
+      두 옵션을 결합 운영하는 것이 디폴트 시나리오.
+    </div>
+
+    <div class="scenario-box">
+      <h4>옵션 1 — 구입 시장 직접 진입 (비권장)</h4>
+      <div class="scenario-title">엔카·K카·KB차차차와 정면승부</div>
+      <ul>
+        <li><strong>필요 자산:</strong> 대규모 매물 확보, 브랜드·신뢰도 구축, 매물 등재 시스템</li>
+        <li><strong>장벽:</strong> 엔카 53% 록인, 인지도 80%, 신뢰 구축에 수년 소요</li>
+        <li><strong>당사 자산 적합도:</strong> 낮음 — 매물 자산 없음</li>
+        <li><strong>권장 여부:</strong> 비권장. 진입 비용 대비 회수 가능성 낮음</li>
+      </ul>
+    </div>
+
+    <div class="scenario-box">
+      <h4>옵션 2 — 직영 매매업 (장기 옵션)</h4>
+      <div class="scenario-title">K카처럼 매입·정비·판매 자체 운영</div>
+      <ul>
+        <li><strong>필요 자산:</strong> 차량 매입 자금, 정비센터, 물류·AS 인프라</li>
+        <li><strong>수익성:</strong> K카 영업이익률 3.1% — 검증된 수익 모델</li>
+        <li><strong>당사 자산 적합도:</strong> 매우 낮음 — 자본·시간·인프라 부담</li>
+        <li><strong>권장 여부:</strong> 초기 진입 비권장. 5년+ 장기 옵션으로만</li>
+      </ul>
+    </div>
+
+    <div class="scenario-box">
+      <h4>옵션 3 — 처분 시장 C2C 경매 진입 (권장)</h4>
+      <div class="scenario-title">헤이딜러식 '내차팔기' 모델, 당사 1,600 딜러 활용</div>
+      <ul>
+        <li><strong>필요 자산:</strong> 매입 딜러 네트워크, 경매 시스템, 사용자 인입</li>
+        <li><strong>당사 자산 적합도:</strong> <strong>높음</strong> — 1,600 자동차 딜러 + 유튜브 브랜드 인입</li>
+        <li><strong>장벽:</strong> 헤이딜러 90% 딜러 록인, 처분 점유율 40%</li>
+        <li><strong>차별화 가능 요소:</strong>
+          <ul>
+            <li>당사 1,600 딜러가 헤이딜러와 다른 권역/특성 보유 시 보완 가능</li>
+            <li>매도자에게 보험 해지·환급·신차 보험 전환을 패키지로 제공 (당사 본업 결합)</li>
+            <li>"낙찰 후 흥정 없음" 같은 신뢰 강화 정책</li>
+          </ul>
+        </li>
+        <li><strong>권장 여부:</strong> 검토 권장. 단 1,600 딜러 활성도·경매 시스템 구축 비용 사전 점검 필수</li>
+      </ul>
+    </div>
+
+    <div class="scenario-box">
+      <h4>옵션 4 — 보험 cross-sell 채널화 (1순위 권장)</h4>
+      <div class="scenario-title">중고차 거래(구입·처분 모두) lead 수집 → 자동차보험 가입 전환</div>
+      <ul>
+        <li><strong>필요 자산:</strong> 콘텐츠·랜딩 페이지, 보험 상담 조직 (이미 보유)</li>
+        <li><strong>당사 자산 적합도:</strong> <strong>매우 높음</strong> — 본업 그대로 적용</li>
+        <li><strong>장벽:</strong> 낮음. 직접 중고차 거래에 진입하지 않으므로 시장 록인 무관</li>
+        <li><strong>모델:</strong>
+          <ul>
+            <li>중고차 구매 의향 사용자에게 중고차 비교 콘텐츠·외부 매물 송출 + 보험 cross-sell</li>
+            <li>중고차 매도 사용자에게 처분 정보 + 신차 검토 + 보험 재가입 cross-sell</li>
+            <li>중고차 인도 시점도 의무보험 가입 필요 → 동일한 보험 전환 메커니즘 적용</li>
+          </ul>
+        </li>
+        <li><strong>권장 여부:</strong> <strong>1순위.</strong> 진입 비용 최저, 본업 매출 직접 기여</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>옵션 조합 권장안 — 옵션 4 + 옵션 3</summary>
+      <div class="body">
+        <p><strong>디폴트 진입 전략:</strong> 옵션 4(보험 cross-sell 채널화)를 1단계로 즉시 시작 → 데이터·트래픽 축적 후 옵션 3(처분 시장 C2C 경매) 진입 검토.</p>
+        <ul>
+          <li>1단계: 옵션 4 — 중고차 관련 콘텐츠로 lead 수집, 보험 cross-sell 펀널 구축</li>
+          <li>2단계: 옵션 3 — 1,600 딜러 자산 검증 결과에 따라 처분 경매 진입 결정</li>
+          <li>3단계: 옵션 2 (직영)는 1·2단계 성과 누적 후 별도 검토 (조기 진입 불권장)</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 7. 결합상품 ===================== -->
+<details>
+  <summary><span class="num">07</span>결합상품 모델 — 중고차 + 보험</summary>
+  <div class="body">
+
+    <div class="callout key">
+      <span class="tag">핵심 아이디어</span>
+      중고차도 신차와 동일하게 인도 시점 의무보험 가입 발생.
+      <strong>중고차 거래(구입·처분 모두)에서 보험 cross-sell 가능</strong>하며, 신차·렌트/리스 결합과 동일한 메커니즘.
+    </div>
+
+    <h3>중고차 거래의 보험 전환 기회</h3>
+    <table>
+      <tr><th>거래 형태</th><th>보험 관련 의사결정</th><th>당사 cross-sell 기회</th></tr>
+      <tr><td><strong>중고차 구입</strong></td><td>의무보험 신규 가입 또는 명의 이전</td><td>신규 가입 영업 (신차와 동일)</td></tr>
+      <tr><td><strong>중고차 매도(처분)</strong></td><td>기존 보험 해지·환급 + 새 차량 보험 이동</td><td>해지·환급 안내 + 신차/새 중고차 보험 영업</td></tr>
+      <tr><td><strong>중고차 보유 중</strong></td><td>매년 갱신, 특약 조정</td><td>비교 가입 유도, 갱신 시점 영업</td></tr>
+    </table>
+
+    <details open>
+      <summary>왜 중고차 거래가 보험 cross-sell에 강한가</summary>
+      <div class="body">
+        <ul>
+          <li><strong>의무 가입:</strong> 중고차도 신차와 동일하게 의무보험(대인배상Ⅰ) 가입 필수</li>
+          <li><strong>매도 시점도 보험 결정:</strong> 신차에 없는 추가 cross-sell 기회 (해지·환급)</li>
+          <li><strong>신뢰가 핵심 변수인 시장과 정합:</strong> 중고차 사용자는 신뢰성 결핍을 강하게 느끼며, 당사 상담·비교 모델이 이 페인포인트와 정합</li>
+          <li><strong>OEM 인증중고차 트렌드와 호환:</strong> "신뢰 강화" 메시지가 시장 전반 트렌드</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>예상 단가 시뮬레이션 (확정 전)</summary>
+      <div class="body">
+        <p>아래는 모델 설명용 예시. 실제 수치는 보험팀 협의·시장 단가 확인 후 확정.</p>
+        <table>
+          <tr><th>항목</th><th>예시 단가</th></tr>
+          <tr><td>중고차 관련 lead 1건당 매출 (CPA, 옵션)</td><td>건당 수천~수만원대 추정</td></tr>
+          <tr><td>중고차 lead → 보험 전환율</td><td>실측 필요</td></tr>
+          <tr><td>보험 1건 평균 마진</td><td>당사 내부 데이터 기준</td></tr>
+          <tr><td>lead 1건당 기대 매출 (가중평균)</td><td>= CPA + (전환율 × 보험마진)</td></tr>
+        </table>
+        <p class="src">단가는 모두 예시. 실측 후 확정. <span class="confidence low">신뢰도 낮음 — 확정 전</span></p>
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ===================== 8. 다나와 협업 ===================== -->
+<details>
+  <summary><span class="num">08</span>다나와 협업 가능성 — 시너지 제한적</summary>
+  <div class="body">
+
+    <div class="callout warn">
+      <span class="tag">중요</span>
+      중고차 영역의 다나와 협업은 <strong>신차·렌트/리스 대비 시너지가 약함</strong>.
+      다나와 자동차도 중고차 영역에서 5위권 밖이며, 협업으로 가져올 수 있는 자산이 제한적.
+    </div>
+
+    <h3>다나와 중고차 협업의 제약</h3>
+    <ul>
+      <li>다나와가 중고차 시장에서 시장 지배력 없음 (엔카 53% / K카 21% / KB차차차 14% / 다나와 미진입권)</li>
+      <li>다나와 중고차 매물 DB도 엔카 등 외부 의존</li>
+      <li>다나와 자체가 중고차 영역에 큰 투자·확장 의지가 없을 가능성</li>
+    </ul>
+
+    <h3>가능한 협업 형태</h3>
+    <details open>
+      <summary>형태 A — 다나와 중고차 매물 DB 활용 (보조)</summary>
+      <div class="body">
+        <p>다나와가 보유한 중고차 매물 비교·검색 DB를 당사 페이지에 노출 (라이선스·API 형태). 옵션 4(보험 cross-sell)의 콘텐츠·랜딩 페이지에 활용 가능.</p>
+        <p><strong>한계:</strong> 다나와 매물 DB 자체가 약하므로 차별화 자산은 안 됨. 보조 콘텐츠로만.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>형태 B — 다나와 자동차 통합 메뉴 활용 (트래픽 송출)</summary>
+      <div class="body">
+        <p>다나와 자동차의 중고차 메뉴 사용자를 당사 중고차 보험 가입 채널로 송출.</p>
+        <p><strong>한계:</strong> 다나와 중고차 트래픽 자체가 크지 않아 송출 효과 제한적.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>형태 C — 옵션 3(C2C 경매) 진입 시 다나와 매물 표시</summary>
+      <div class="body">
+        <p>당사가 C2C 경매 모델 구축 시, 거래 후 매물을 다나와 매물 페이지에 노출 (양사 트래픽 상호 활용).</p>
+        <p><strong>한계:</strong> 옵션 3 진입 자체가 확정 사안 아님. 후순위.</p>
+      </div>
+    </details>
+
+    <div class="callout note">
+      <span class="tag">시사점</span>
+      중고차 영역에서 다나와는 강한 협업 파트너가 아님.
+      당사가 직접 모델(옵션 3, 4)로 진입하는 것이 더 합리적.
+      신차·렌트/리스 협업의 부수적 확장 정도로 다나와 중고차를 활용하는 것이 적정 수준.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 9. 수익 시나리오 ===================== -->
+<details>
+  <summary><span class="num">09</span>예상 수익 시나리오 검토</summary>
+  <div class="body">
+
+    <div class="callout warn">
+      <span class="tag">주의</span>
+      본 시나리오는 가정 기반의 예시. 실제 단가·전환율 확정 전.
+    </div>
+
+    <details open>
+      <summary>시나리오 A — 옵션 4 중심 (보험 cross-sell 채널화)</summary>
+      <div class="body">
+        <p>중고차 관련 콘텐츠로 lead 수집 → 보험 가입 전환:</p>
+        <ul>
+          <li>월 중고차 관련 lead 수집 수 × 보험 전환율 = 월 보험 가입</li>
+          <li>월 보험 가입 × 보험 1건 평균 마진 = 월 보험 매출</li>
+          <li>운영비 매우 낮음 (콘텐츠·랜딩만, 매물·딜러 운영 없음)</li>
+        </ul>
+        <p><strong>평가:</strong> 진입 비용 최저, 본업 매출 직접 기여. 1단계 즉시 시작 가능.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 B — 옵션 3 추가 (C2C 경매 진입)</summary>
+      <div class="body">
+        <p>옵션 4 1단계 안정화 후 옵션 3 추가:</p>
+        <ul>
+          <li>매도 사용자 lead × 딜러 입찰 수수료 = 경매 매출</li>
+          <li>매도 사용자에게 보험 환급·재가입 cross-sell 동시 진행</li>
+          <li>당사 1,600 딜러 활성화 = 매입 딜러 네트워크 확보</li>
+        </ul>
+        <p><strong>평가:</strong> 옵션 4 대비 수익원 다각화. 단 경매 시스템 구축 비용·딜러 활성도 검증 필요.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>시나리오 C — 옵션 1·2 정면 진입 (비권장)</summary>
+      <div class="body">
+        <p>구입 시장 또는 직영 매매 진입. <strong>참고용으로만 분석</strong>:</p>
+        <ul>
+          <li>엔카·K카와 직접 경쟁 — 매물 자산·자본 부담 매우 큼</li>
+          <li>K카 영업이익률 3.1% 도달까지 수년 소요</li>
+          <li>실패 시 매몰 비용 큼</li>
+        </ul>
+        <p><strong>평가:</strong> 본 시나리오 단독 추진은 권장하지 않음. 옵션 4·3 누적 성과 후 별도 검토.</p>
+      </div>
+    </details>
+
+    <div class="callout key">
+      <span class="tag">분석 결론</span>
+      중고차 영역 수익화는 <strong>시나리오 A(옵션 4, 보험 cross-sell 채널화)</strong>를 즉시 1단계로 시작하고,
+      성과 누적 후 시나리오 B(옵션 3, 처분 경매) 진입을 검토하는 것이 합리적 순서.
+      시나리오 C(직접 시장 진입)는 장기 옵션으로만.
+    </div>
+
+  </div>
+</details>
+
+<!-- ===================== 10. 리스크 & 액션 ===================== -->
+<details>
+  <summary><span class="num">10</span>리스크 & 다음 단계</summary>
+  <div class="body">
+
+    <h3>실측·검증 필요 항목</h3>
+    <table>
+      <tr><th>항목</th><th>방법</th><th>담당</th></tr>
+      <tr><td>당사 1,600 자동차 딜러 중 중고차 매매업 보유·활성 비율</td><td>딜러 표본 조사</td><td>보험·딜러 관리팀</td></tr>
+      <tr><td>중고차 lead → 보험 전환율</td><td>옵션 4 시범 운영 후 실측</td><td>실무</td></tr>
+      <tr><td>중고차 보험 1건당 평균 마진</td><td>보험팀 내부 데이터</td><td>보험팀</td></tr>
+      <tr><td>C2C 경매 시스템 구축 비용·기간</td><td>기술팀 사전 검토</td><td>기술팀</td></tr>
+      <tr><td>다나와 중고차 사업의 사내 위상·확장 의지</td><td>실무 미팅에서 확인</td><td>실무</td></tr>
+    </table>
+
+    <h3>주요 리스크</h3>
+    <ul>
+      <li><strong>옵션 1·2 압박:</strong> 윗선에서 "중고차 본격 진입" 요구 시, 옵션 1·2의 비현실성을 명확히 설명해야 함. 본 문서가 그 근거 자료.</li>
+      <li><strong>1,600 딜러 자산 부족:</strong> 옵션 3 진입 시 핵심 의존 자산. 활성도 실측 부재 시 옵션 3 자체 불가.</li>
+      <li><strong>옵션 4 트래픽 부족:</strong> 중고차 관련 콘텐츠 인입이 신차·렌트/리스 대비 약할 가능성. 콘텐츠 전략·키워드 별도 설계 필요.</li>
+      <li><strong>OEM 인증중고차 확장:</strong> 현대·기아 인증중고차가 본격 확장하면 시장 신뢰 구조 자체가 변동. 당사 진입 시점 영향.</li>
+      <li><strong>다나와 협업 시너지 부재:</strong> 신차 기획안과 달리 다나와 협업의 추진력이 약하므로 자체 진입 부담이 큼.</li>
+    </ul>
+
+    <h3>즉시 액션 (실무자)</h3>
+    <ol>
+      <li>옵션 4(보험 cross-sell 채널화)를 위한 중고차 콘텐츠 영역 발굴 — 검색 키워드·페인포인트 매핑</li>
+      <li>보험팀과 중고차 관련 보험 가입 전환율 시뮬레이션 (과거 데이터 기반)</li>
+      <li>1,600 딜러 중 중고차 매매업·매입 의향 보유자 표본 조사 (옵션 3 사전 검증)</li>
+      <li>OEM 인증중고차(현대·기아) 동향 모니터링 — 시장 재편 영향 평가</li>
+      <li>옵션 1·2의 비현실성을 윗선 보고 시 명확히 전달 (조기 진입 리소스 분산 방지)</li>
+    </ol>
+
+  </div>
+</details>
+
+<footer class="doc">
+  본 문서는 사전 검토안. 단가·전환율·딜러 자산 실측 후 v1 확정. 신뢰도 보통/낮음 항목은 검증 전 외부 인용 금지. 신차·렌트/리스 영역은 별도 기획안 참조.
+</footer>
+
+</div>
+</body>
+</html>
